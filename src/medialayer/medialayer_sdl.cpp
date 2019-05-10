@@ -176,12 +176,16 @@ void MediaLayer_SDL::generate_output(){
  * Returns delta time in seconds
  * 
  */
-double MediaLayer_SDL::delta_time(){
+double MediaLayer_SDL::get_delta_time(){
     double delta = (SDL_GetTicks() - _ticks_count) / 1000.0;
 
     // cap delta time
     if(delta > _delta_max){
         delta = _delta_max;
     }
+
+    // Reset tick counter
+    _ticks_count = 0;
+
     return delta;
 }

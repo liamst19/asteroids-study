@@ -28,6 +28,9 @@ public:
     MediaLayer(){};
     virtual ~MediaLayer(){};
 
+    // --------------------------------------------------
+    // Static Wrapper Functions -------------------------
+
     // Wrapper function for initializing media layer object
     static bool MediaLayer_Initialize(MediaLayer* layer, int window_width, int window_height);
 
@@ -39,6 +42,10 @@ public:
 
     // Wrapper function for rendering screen
     static void MediaLayer_GenerateOutput(MediaLayer* layer);
+
+    // Wrapper function for getting delta time
+    static double MediaLayer_GetDeltaTime(MediaLayer* layer);
+    // --------------------------------------------------
 
     // Initializes media layer
     virtual bool initialize() =0;
@@ -65,7 +72,7 @@ public:
     virtual MEDIALAYER_KEY_CODE get_input() =0;
 
     // Calculates delta time
-    virtual double delta_time() =0;
+    virtual double get_delta_time() =0;
 
 protected:
 

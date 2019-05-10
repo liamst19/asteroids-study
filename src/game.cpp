@@ -82,7 +82,6 @@ void Game::process_input(){
             _is_running = false;
             break;
     }
-
 }
 
 /** function: update_game()
@@ -90,6 +89,9 @@ void Game::process_input(){
  * 
  */
 void Game::update_game(){
+
+    // get delta time
+    double delta = MediaLayer::MediaLayer_GetDeltaTime(_media_layer);
 
  }
 

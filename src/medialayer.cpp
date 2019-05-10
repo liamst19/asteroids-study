@@ -37,3 +37,11 @@ MEDIALAYER_KEY_CODE MediaLayer::MediaLayer_GetInput(MediaLayer* layer){
 void MediaLayer::MediaLayer_GenerateOutput(MediaLayer* layer){
     layer->generate_output();
 }
+
+/** function MediaLayer_GetDeltaTime()
+ * 
+ * 
+ */
+double MediaLayer::MediaLayer_GetDeltaTime(MediaLayer* layer){
+    return layer->get_delta_time();
+}

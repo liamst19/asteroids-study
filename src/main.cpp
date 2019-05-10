@@ -6,7 +6,7 @@
 
 #include <iostream>
 #include "game.h"
-#include "medialayer_sdl.h"
+#include "medialayer/medialayer_sdl.h"
 
 int main(int argc, char* argv[]){
   

@@ -8,7 +8,7 @@
 #define MEDIALAYER_SDL
 
 #include <SDL2/SDL.h> // hopefully this is contained
-#include "medialayer.h"
+#include "../medialayer.h"
 
 class MediaLayer_SDL: public MediaLayer{
 
@@ -61,7 +61,7 @@ public:
     void generate_output();
 
     // Calculates delta time
-    double delta_time();
+    double get_delta_time();
 
 private:
 
