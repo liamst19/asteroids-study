@@ -3,8 +3,6 @@
 .* Inherits MediaLayer for handling keyboard inputs 
  * and outputs to screen.
  * 
- * 
- * 
  */
 #ifndef MEDIALAYER_SDL
 #define MEDIALAYER_SDL
@@ -34,23 +32,35 @@ public:
     };
 
     ~MediaLayer_SDL(){
+        // check if shut down was called?
         // shutdown();
     };
 
+    // Initializes Media Layer
     bool initialize();
+    
+    // Initializes media layer with window dimensions, position window at the center of screen
     bool initialize(int window_width, int window_height);
+
+    // Initializes media layer with window dimensions and position
     bool initialize(int window_width, int window_height, int window_x, int window_y);
+
+    // Shuts down media layer
     void shutdown();
 
+    // Creates new window
     bool create_window();
+
+    // Retrieves input (keyboard) from media layer
     MEDIALAYER_KEY_CODE get_input();
 
-    // adds an object to be rendered to a vector
+    // Adds an object to be rendered to a vector
     void draw();
 
-    // iterate through vector and render contents
-    void generate_ouput();
+    // Renders contents onto screen
+    void generate_output();
 
+    // Calculates delta time
     double delta_time();
 
 private:
@@ -59,6 +69,7 @@ private:
     SDL_Renderer* _renderer;    // SDL Renderer
     int _sdl_flag{0};           // SDL Flags: I don't know what this is
 
+    // Creates SDL 2D rendering context
     bool create_renderer();
 
 };

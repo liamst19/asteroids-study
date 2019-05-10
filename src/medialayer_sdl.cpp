@@ -1,7 +1,5 @@
 /** medialayer_sdl.cpp
  *
- * 
- * 
  */
 
 #include <SDL2/SDL.h>
@@ -15,12 +13,20 @@
  * 
  */
 bool MediaLayer_SDL::initialize(){
-    bool initialized = false;
 
-    initialized = create_window();
-    initialized = create_renderer();
+    // Create Window
+    if(!create_window())
+    {
+        return false;
+    } 
+    
+    // Create Rendering context
+    if (!create_renderer())
+    {
+        return false;
+    }
 
-    return initialized;
+    return true;
 }
 
 /* function: initialize()
@@ -28,16 +34,21 @@ bool MediaLayer_SDL::initialize(){
  * 
  */
 bool MediaLayer_SDL::initialize(int window_width, int window_height, int window_x, int window_y){
+
+    // Set window dimensions
     _window_width = window_width;
     _window_height = window_height;
+
+    // Set window position
     _win_coordinate_x = window_x;
     _win_coordinate_y = window_y;
+
     return initialize();
 }
 
 /* function: initialize()
  *
- * 
+ * Initialize with given window dimensions, position window at the center of screen
  */
 bool MediaLayer_SDL::initialize(int window_width, int window_height){
     return initialize(window_width, window_height, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
@@ -150,24 +161,27 @@ void MediaLayer_SDL::draw(){
  *
  * 
  */
-void MediaLayer_SDL::generate_ouput(){
-
-    SDL_SetRenderDrawColor(_renderer,
-                            0,
-                            0,
-                            255,
-                            255);
+void MediaLayer_SDL::generate_output(){
     SDL_RenderClear(_renderer);
+    SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 0);
 
-    SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
+    // Render Game Objects ------------------------------
+
+    // --------------------------------------------------
     
     SDL_RenderPresent(_renderer);
 }
 
 /* function: delta_time()
- *
+ * Returns delta time in seconds
  * 
  */
 double MediaLayer_SDL::delta_time(){
-    return (SDL_GetTicks() - _ticks_count) / 1000.0;
+    double delta = (SDL_GetTicks() - _ticks_count) / 1000.0;
+
+    // cap delta time
+    if(delta > _delta_max){
+        delta = _delta_max;
+    }
+    return delta;
 }

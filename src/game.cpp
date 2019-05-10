@@ -1,6 +1,5 @@
 /** game.cpp
  *
- * 
  */
 #include "game.h"
 #include "medialayer.h"
@@ -15,10 +14,10 @@
 bool Game::initialize(){
 
     if(_media_layer == nullptr){
-        // throw error: media layer is not initialized
+        // throw exception: media layer is not initialized
         return false;
     } else if(_window_width <= 0 || _window_height <= 0){
-        // invalid window size
+        // throw exception: invalid window size
         return false;
     }
 
@@ -99,5 +98,5 @@ void Game::update_game(){
  * 
  */
 void Game::generate_output(){
-
+    MediaLayer::MediaLayer_GenerateOutput(_media_layer);
  }
