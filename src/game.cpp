@@ -1,6 +1,10 @@
 /** game.cpp
  *
  */
+
+#include <vector>
+#include "component.h"
+#include "gameobject.h"
 #include "game.h"
 #include "medialayer.h"
 
@@ -23,6 +27,13 @@ bool Game::initialize(){
 
     bool initialized = true;
     initialized = MediaLayer::MediaLayer_Initialize(_media_layer, _window_width, _window_height);
+
+    // Create game objects --------------------------------------
+
+    // -- create asteroids
+    // -- create player ship
+
+    // ----------------------------------------------------------
 
     return initialized;
 }
@@ -76,12 +87,20 @@ void Game::shutdown(){
 void Game::process_input(){
     MEDIALAYER_KEY_CODE key = MediaLayer::MediaLayer_GetInput(_media_layer);
 
-    switch(key){
-        case MEDIALAYER_KEY_QUIT:
-             MEDIALAYER_KEY_ESC:
-            _is_running = false;
-            break;
+    if(key == MEDIALAYER_KEY_QUIT || key == MEDIALAYER_KEY_ESC){
+        // Exit game
+        _is_running = false;
+        return;
+    } else if(key != MEDIALAYER_KEY_NULL){
+        // Convert keyboard input to action code
+        Component::Game_Action_Code g_action = map_action(key);
+
+        // iterate through game objects and run process_input()
+        for(auto gameobj: _game_objects){
+            gameobj->process_input(g_action);
+        }
     }
+
 }
 
 /** function: update_game()
@@ -91,7 +110,18 @@ void Game::process_input(){
 void Game::update_game(){
 
     // get delta time
-    double delta = MediaLayer::MediaLayer_GetDeltaTime(_media_layer);
+    double delta_time = MediaLayer::MediaLayer_GetDeltaTime(_media_layer);
+
+    // iterate through game objects and run update()
+    for(auto gameobj: _game_objects){
+        gameobj->update(delta_time);
+        // if object is destroyed, remove from vector
+        // flag respawn smaller asteroids if destroyed
+    }
+
+    // respawn asteroids
+
+    // if ship is destroyed, respawn ship
 
  }
 
@@ -100,5 +130,46 @@ void Game::update_game(){
  * 
  */
 void Game::generate_output(){
+
+    // iterate through and render game objects
+
     MediaLayer::MediaLayer_GenerateOutput(_media_layer);
  }
+
+ /** function map_action()
+  * 
+  * Convert keyboard input to game action
+  * 
+  * Note: Could there be an instance where there are 
+  * two actions with one key input?
+  * 
+  * Note: In most games keys can be remapped by player.
+  * 
+  */
+Component::Game_Action_Code Game::map_action(MEDIALAYER_KEY_CODE key){
+    Component::Game_Action_Code action{Component::Game_Action_Code::nothing};
+
+    switch(key){
+        case MEDIALAYER_KEY_W:
+            action = Component::Game_Action_Code::accelerate;
+            break;
+        
+        case MEDIALAYER_KEY_A:
+            action = Component::Game_Action_Code::rotate_left;
+            break;
+        
+        case MEDIALAYER_KEY_S:
+            action = Component::Game_Action_Code::decelerate;
+            break;
+
+        case MEDIALAYER_KEY_D:
+            action = Component::Game_Action_Code::rotate_right;
+            break;
+
+        case MEDIALAYER_KEY_SPC:
+            action = Component::Game_Action_Code::shoot_laser;
+            break;
+    }
+
+    return action;
+} 

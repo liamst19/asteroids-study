@@ -6,15 +6,20 @@
 
 #ifndef GAME_H
 #define GAME_H
+
+#include <vector>
 #include <SDL2/SDL.h>
 #include "medialayer.h"
+#include "gameobject.h"
+#include "component.h"
 
 class Game{
 
 public:
 
+
     Game():
-    _media_layer(nullptr)
+        _media_layer(nullptr)
     {};
 
     ~Game(){};
@@ -39,6 +44,7 @@ private:
     int _window_width{720};
     int _window_height{480};
     MediaLayer* _media_layer;
+    std::vector<GameObject*> _game_objects;
 
     // Retrieves and handles keyboard input from media layer
     void process_input();
@@ -48,6 +54,9 @@ private:
 
     // Renders updated game objects
     void generate_output();
+
+    // Converts keyboard input to game action
+    Component::Game_Action_Code map_action(MEDIALAYER_KEY_CODE key);
 
 };
 #endif

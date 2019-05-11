@@ -8,15 +8,16 @@
 #define MEDIALAYER_SDL
 
 #include <SDL2/SDL.h> // hopefully this is contained
-#include "../medialayer.h"
+#include "medialayer.h"
 
 class MediaLayer_SDL: public MediaLayer{
 
 public:
   
     MediaLayer_SDL():
-    _window(nullptr),
-    _renderer(nullptr){};
+        _window(nullptr),
+        _renderer(nullptr)
+    {};
 
     MediaLayer_SDL(int window_width, int window_height, int window_x, int window_y)
     {

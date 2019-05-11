@@ -2,7 +2,6 @@ set(TEST_DIR ${CMAKE_SOURCE_DIR}/tests)
 
 FILE(GLOB TEST_SOURCES ${TEST_DIR}/*.test.cpp)
 add_executable(asteroids-test ${TEST_SOURCES})
-# add_executable(asteroid-test catch2main.hpp ${TEST_SOURCES})
 
 target_link_libraries(asteroids-test lib-asteroids) # From CMakeLists in ~/src
 
@@ -47,16 +46,4 @@ endif()
 
 # Now simply link against gtest or gtest_main as needed. Eg
 target_link_libraries(asteroids-test gtest_main)
-# add_test(NAME asteroids-test COMMAND example)
-
-
-# ----------------------------------------------------------------------
-# Catch2
-# ----------------------------------------------------------------------
-# find_package(Catch2 REQUIRED)
-# target_link_libraries(asteroids-test Catch2::Catch2)
-
-# include(CTest)
-# include(Catch)
-# catch_discover_tests(asteroids-test)
-# ----------------------------------------------------------------------
+add_test(NAME asteroids-test COMMAND Vector2dTest)
