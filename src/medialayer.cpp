@@ -26,7 +26,7 @@ void MediaLayer::MediaLayer_Shutdown(MediaLayer* layer){
  *
  * 
  */
-MEDIALAYER_KEY_CODE MediaLayer::MediaLayer_GetInput(MediaLayer* layer){
+Medialayer_Key_Code MediaLayer::MediaLayer_GetInput(MediaLayer* layer){
     return layer->get_input();
 }
 

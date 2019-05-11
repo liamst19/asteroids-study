@@ -53,7 +53,7 @@ public:
     bool create_window();
 
     // Retrieves input (keyboard) from media layer
-    MEDIALAYER_KEY_CODE get_input();
+    Medialayer_Key_Code get_input();
 
     // Adds an object to be rendered to a vector
     void draw();

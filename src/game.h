@@ -56,7 +56,7 @@ private:
     void generate_output();
 
     // Converts keyboard input to game action
-    Component::Game_Action_Code map_action(MEDIALAYER_KEY_CODE key);
+    Component::Game_Action_Code map_action(Medialayer_Key_Code key);
 
 };
 #endif

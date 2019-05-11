@@ -9,16 +9,16 @@
 #define MEDIALAYER_H
 
 // Keyboard inputs and window events
-enum MEDIALAYER_KEY_CODE{
-    MEDIALAYER_KEY_NULL=0, // Default
-    MEDIALAYER_KEY_QUIT,
-    MEDIALAYER_KEY_ESC,
-    MEDIALAYER_KEY_SPC,
-    MEDIALAYER_KEY_W,
-    MEDIALAYER_KEY_A,
-    MEDIALAYER_KEY_S,
-    MEDIALAYER_KEY_D,
-    MEDIALAYER_KEY_SEMICOLON
+enum class Medialayer_Key_Code{
+    null=0, // default
+    quit,
+    esc,
+    spc,
+    w,
+    a,
+    s,
+    d,
+    semicolon
 };
 
 class MediaLayer{
@@ -38,7 +38,7 @@ public:
     static void MediaLayer_Shutdown(MediaLayer* layer);
 
     // Wrapper function for retrieving keyboard input
-    static MEDIALAYER_KEY_CODE MediaLayer_GetInput(MediaLayer* layer);
+    static Medialayer_Key_Code MediaLayer_GetInput(MediaLayer* layer);
 
     // Wrapper function for rendering screen
     static void MediaLayer_GenerateOutput(MediaLayer* layer);
@@ -69,7 +69,7 @@ public:
     virtual void draw() =0;
 
     // Retrieves input from devices
-    virtual MEDIALAYER_KEY_CODE get_input() =0;
+    virtual Medialayer_Key_Code get_input() =0;
 
     // Calculates delta time
     virtual double get_delta_time() =0;

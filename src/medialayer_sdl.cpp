@@ -112,14 +112,14 @@ bool MediaLayer_SDL::create_renderer(){
  *
  * 
  */
-MEDIALAYER_KEY_CODE MediaLayer_SDL::get_input(){
+Medialayer_Key_Code MediaLayer_SDL::get_input(){
     
     // Close Window
     SDL_Event event;
     while(SDL_PollEvent(&event)){
         switch(event.type){
         case SDL_QUIT:
-            return MEDIALAYER_KEY_QUIT;
+            return Medialayer_Key_Code::quit;
             break;
         };
     };
@@ -127,26 +127,26 @@ MEDIALAYER_KEY_CODE MediaLayer_SDL::get_input(){
     // Get state of keyboard
     const Uint8* state = SDL_GetKeyboardState(NULL);
     if(state[SDL_SCANCODE_ESCAPE]){
-        return MEDIALAYER_KEY_ESC;
+        return Medialayer_Key_Code::esc;
     };
     if(state[SDL_SCANCODE_W]){
-        return MEDIALAYER_KEY_W;
+        return Medialayer_Key_Code::w;
     }
     if(state[SDL_SCANCODE_A]){
-        return MEDIALAYER_KEY_A;
+        return Medialayer_Key_Code::a;
     }
     if(state[SDL_SCANCODE_S]){
-        return MEDIALAYER_KEY_S;
+        return Medialayer_Key_Code::s;
     }
     if(state[SDL_SCANCODE_D]){
-        return MEDIALAYER_KEY_D;
+        return Medialayer_Key_Code::d;
     }
     if(state[SDL_SCANCODE_SEMICOLON]){
-        return MEDIALAYER_KEY_SEMICOLON;
+        return Medialayer_Key_Code::semicolon;
     }
 
     // Return null
-    return MEDIALAYER_KEY_NULL;
+    return Medialayer_Key_Code::null;
 }
 
 /* function: draw()

@@ -85,13 +85,13 @@ void Game::shutdown(){
  * 
  */
 void Game::process_input(){
-    MEDIALAYER_KEY_CODE key = MediaLayer::MediaLayer_GetInput(_media_layer);
+    Medialayer_Key_Code key = MediaLayer::MediaLayer_GetInput(_media_layer);
 
-    if(key == MEDIALAYER_KEY_QUIT || key == MEDIALAYER_KEY_ESC){
+    if(key == Medialayer_Key_Code::quit || key == Medialayer_Key_Code::esc){
         // Exit game
         _is_running = false;
         return;
-    } else if(key != MEDIALAYER_KEY_NULL){
+    } else if(key != Medialayer_Key_Code::null){
         // Convert keyboard input to action code
         Component::Game_Action_Code g_action = map_action(key);
 
@@ -146,27 +146,27 @@ void Game::generate_output(){
   * Note: In most games keys can be remapped by player.
   * 
   */
-Component::Game_Action_Code Game::map_action(MEDIALAYER_KEY_CODE key){
+Component::Game_Action_Code Game::map_action(Medialayer_Key_Code key){
     Component::Game_Action_Code action{Component::Game_Action_Code::nothing};
 
     switch(key){
-        case MEDIALAYER_KEY_W:
+        case Medialayer_Key_Code::w:
             action = Component::Game_Action_Code::accelerate;
             break;
         
-        case MEDIALAYER_KEY_A:
+        case Medialayer_Key_Code::a:
             action = Component::Game_Action_Code::rotate_left;
             break;
         
-        case MEDIALAYER_KEY_S:
+        case Medialayer_Key_Code::s:
             action = Component::Game_Action_Code::decelerate;
             break;
 
-        case MEDIALAYER_KEY_D:
+        case Medialayer_Key_Code::d:
             action = Component::Game_Action_Code::rotate_right;
             break;
 
-        case MEDIALAYER_KEY_SPC:
+        case Medialayer_Key_Code::spc:
             action = Component::Game_Action_Code::shoot_laser;
             break;
     }
