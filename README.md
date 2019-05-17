@@ -7,3 +7,7 @@ The primary intentions are:
 - practice the component pattern
 - practice handling simple physics within a 2-dimentional game space
 - practice testing, using the [google test framework](https://github.com/google/googletest)
+
+
+
+![GitHub Logo](/images/screen.jpg)
