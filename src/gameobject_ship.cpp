@@ -46,12 +46,15 @@ void Ship::update(double delta_time){
  */
 std::vector<Vector2d> Ship::make_shape(){
     float radius = 10;
+    float short_radius = 7;
     _physics.set_direction(90);
     _physics.set_rotation(90);
 
     std::vector<Vector2d> shape{
-        Vector2d(radius * Math::Cos(Math::ToRadians(0)),   radius * -Math::Sin(Math::ToRadians(0))),
+        Vector2d(short_radius * Math::Cos(Math::ToRadians(0)),   radius * -Math::Sin(Math::ToRadians(0))),
         Vector2d(radius * Math::Cos(Math::ToRadians(150)), radius * -Math::Sin(Math::ToRadians(150))),
+        Vector2d(short_radius * Math::Cos(Math::ToRadians(150)), short_radius * -Math::Sin(Math::ToRadians(150))),
+        Vector2d(short_radius * Math::Cos(Math::ToRadians(210)), short_radius * -Math::Sin(Math::ToRadians(210))),
         Vector2d(radius * Math::Cos(Math::ToRadians(210)), radius * -Math::Sin(Math::ToRadians(210)))
     };
 

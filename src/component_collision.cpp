@@ -3,6 +3,7 @@
  * 
  */
 
+#include <vector>
 #include "component_collision.h"
 
 /** Constructor
@@ -26,7 +27,7 @@ void CollisionComponent::update(double delta_time){
  * 
  * 
  */
-void CollisionComponent::process_input(Game_Action_Code action){
+void CollisionComponent::process_input(std::vector<Game_Action_Code> actions){
 
 }
 

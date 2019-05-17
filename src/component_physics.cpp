@@ -4,7 +4,7 @@
  */
 
 #include <SDL2/SDL.h>
-
+#include <vector>
 #include <algorithm>
 #include "gameobject.h"
 #include "component_physics.h"
@@ -89,7 +89,7 @@ void PhysicsComponent::update_position(double delta_time){
  * 
  * 
  */
-void PhysicsComponent::process_input(Game_Action_Code action){
+void PhysicsComponent::process_input(std::vector<Game_Action_Code> actions){
 }
 
 /** function: set_angular_velocity()

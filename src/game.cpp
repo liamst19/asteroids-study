@@ -40,8 +40,8 @@ bool Game::initialize(){
     for(int i = 0; i <= rand(5, 20); ++i){
         _game_objects.push_back(new Asteroid{this, 
                                              Vector2d(rand(0, _window_width), rand(0, _window_height)),
-                                             rand(1, 360),
-                                             rand(1, 360)}
+                                             static_cast<float>(rand(1, 360)),
+                                             static_cast<float>(rand(1, 360))}
                                );
     }
 
@@ -105,22 +105,26 @@ void Game::shutdown(){
  * 
  */
 void Game::process_input(){
-    Medialayer_Key_Code key = MediaLayer::MediaLayer_GetInput(_media_layer);
+    std::vector<Medialayer_Key_Code> key_codes = MediaLayer::MediaLayer_GetInput(_media_layer);
+    std::vector<Component::Game_Action_Code> action_codes;
 
-    if(key == Medialayer_Key_Code::quit || key == Medialayer_Key_Code::esc){
-        // Exit game
-        _is_running = false;
-        return;
-    } else if(key != Medialayer_Key_Code::null){
-        // Convert keyboard input to action code
-        Component::Game_Action_Code g_action = map_action(key);
-
-        // iterate through game objects and run process_input()
-        for(auto gameobj: _game_objects){
-            gameobj->process_input(g_action);
+    for(auto key: key_codes){
+    
+        // Check for exit
+        if(key == Medialayer_Key_Code::quit || key == Medialayer_Key_Code::esc){
+            // Exit game
+            _is_running = false;
+            return;
+        } else if(key != Medialayer_Key_Code::null){
+            // Convert keyboard input to action code
+            action_codes.push_back(map_action(key));
         }
     }
-
+    
+    // iterate through game objects and run process_input()
+    for(auto gameobj: _game_objects){
+        gameobj->process_input(action_codes);
+    }
 }
 
 /** function: update_game()

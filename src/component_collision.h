@@ -5,6 +5,7 @@
 #ifndef COMPONENT_COLLISION_H
 #define COMPONENT_COLLISION_H
 
+#include <vector>
 #include "math.h"
 #include "component.h"
 
@@ -19,7 +20,7 @@ public:
     // Prepare object to be rendered
     void update(double delta_time) override;
 
-    void process_input(Game_Action_Code action) override;
+    void process_input(std::vector<Game_Action_Code> actions) override;
 
     void set_radius(float radius){ _radius = radius; }
 

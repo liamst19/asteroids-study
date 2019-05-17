@@ -7,6 +7,7 @@
 #ifndef MEDIALAYER_SDL
 #define MEDIALAYER_SDL
 
+#include <vector>
 #include <SDL2/SDL.h> // hopefully this is contained
 #include "medialayer.h"
 
@@ -53,7 +54,7 @@ public:
     bool create_window();
 
     // Retrieves input (keyboard) from media layer
-    Medialayer_Key_Code get_input();
+    std::vector<Medialayer_Key_Code> get_input();
     // Renders contents onto screen
     void generate_output();
 
@@ -76,6 +77,7 @@ private:
 
     SDL_Point convert_point(Vector2d point);
 
+    void add_key_code(std::vector<Medialayer_Key_Code>& key_codes, Medialayer_Key_Code key_code);
 };
 
 #endif

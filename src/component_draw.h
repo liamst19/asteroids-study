@@ -20,7 +20,7 @@ public:
     // Prepare object to be rendered
     void update(double delta_time) override;
 
-    void process_input(Game_Action_Code action) override;
+    void process_input(std::vector<Game_Action_Code> actions) override;
 
     void set_shape(std::vector<Vector2d> shape){ _shape = shape; }
 

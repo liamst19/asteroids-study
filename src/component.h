@@ -5,6 +5,8 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
+#include <vector>
+
 class GameObject; // Forward Declare
 
 class Component{
@@ -26,7 +28,7 @@ public:
     virtual ~Component(){};
 
     // Process Input
-    virtual void process_input(Game_Action_Code action) =0;
+    virtual void process_input(std::vector<Game_Action_Code> actions) =0;
 
     // Update
     virtual void update(double delta_time) =0;

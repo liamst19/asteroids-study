@@ -28,7 +28,7 @@ void DrawComponent::update(double delta_time){
  * 
  * 
  */
-void DrawComponent::process_input(Game_Action_Code action){
+void DrawComponent::process_input(std::vector<Game_Action_Code> actions){
 
 }
 

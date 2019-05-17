@@ -2,6 +2,7 @@
  *
  */
 
+#include <vector>
 #include <SDL2/SDL.h>
 #include "medialayer_sdl.h"
 
@@ -72,7 +73,7 @@ void MediaLayer_SDL::shutdown(){
  */
 bool MediaLayer_SDL::create_window(){
 
-    _window = SDL_CreateWindow("Study",
+    _window = SDL_CreateWindow("Asteroids Study",
                                _win_coordinate_x,
                                _win_coordinate_y,
                                _window_width,
@@ -112,14 +113,16 @@ bool MediaLayer_SDL::create_renderer(){
  *
  * 
  */
-Medialayer_Key_Code MediaLayer_SDL::get_input(){
-    
+std::vector<Medialayer_Key_Code> MediaLayer_SDL::get_input(){
+    std::vector<Medialayer_Key_Code> key_codes;
+
     // Close Window
     SDL_Event event;
     while(SDL_PollEvent(&event)){
         switch(event.type){
         case SDL_QUIT:
-            return Medialayer_Key_Code::quit;
+            key_codes.push_back(Medialayer_Key_Code::quit);
+            return key_codes;
             break;
         };
     };
@@ -127,26 +130,40 @@ Medialayer_Key_Code MediaLayer_SDL::get_input(){
     // Get state of keyboard
     const Uint8* state = SDL_GetKeyboardState(NULL);
     if(state[SDL_SCANCODE_ESCAPE]){
-        return Medialayer_Key_Code::esc;
+        add_key_code(key_codes, Medialayer_Key_Code::esc);
     };
     if(state[SDL_SCANCODE_W]){
-        return Medialayer_Key_Code::w;
+        add_key_code(key_codes, Medialayer_Key_Code::w);
     }
     if(state[SDL_SCANCODE_A]){
-        return Medialayer_Key_Code::a;
+        add_key_code(key_codes, Medialayer_Key_Code::a);
     }
     if(state[SDL_SCANCODE_S]){
-        return Medialayer_Key_Code::s;
+        add_key_code(key_codes, Medialayer_Key_Code::s);
     }
     if(state[SDL_SCANCODE_D]){
-        return Medialayer_Key_Code::d;
+        add_key_code(key_codes, Medialayer_Key_Code::d);
     }
     if(state[SDL_SCANCODE_SEMICOLON]){
-        return Medialayer_Key_Code::semicolon;
+        add_key_code(key_codes, Medialayer_Key_Code::semicolon);
     }
 
     // Return null
-    return Medialayer_Key_Code::null;
+    return key_codes;
+}
+
+/** function: add_key_code()
+ * 
+ * 
+ */
+void MediaLayer_SDL::add_key_code(std::vector<Medialayer_Key_Code>& key_codes, Medialayer_Key_Code key_code){
+    // Check if key is already in the vector
+    for(auto key: key_codes){
+        if(key == key_code){
+            return;
+        }
+    }
+    key_codes.push_back(key_code);
 }
 
 /* function: render_objects()

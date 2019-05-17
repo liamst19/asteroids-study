@@ -26,7 +26,7 @@ public:
     virtual ~GameObject(){};
 
     // Process input
-    void process_input(Component::Game_Action_Code action);
+    void process_input(std::vector<Component::Game_Action_Code> actions);
 
     // Update
     virtual void update(double delta_time) =0;

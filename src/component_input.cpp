@@ -3,6 +3,7 @@
  * 
  */
 
+#include <vector>
 #include "component_input.h"
 #include "component_physics.h"
 
@@ -28,35 +29,35 @@ void InputComponent::update(double delta_time){
  * 
  * 
  */
-void InputComponent::process_input(Game_Action_Code action){
+void InputComponent::process_input(std::vector<Game_Action_Code> actions){
+    for(auto action: actions){
+        switch(action){
 
-    switch(action){
+            case Game_Action_Code::go_backward:
+                _physics_component.move_backward();
+                break;
+            
+            case Game_Action_Code::thrust_forward:
+                _physics_component.thrust_forward();
+                break;
 
-        case Game_Action_Code::go_backward:
-            _physics_component.move_backward();
-            break;
-        
-        case Game_Action_Code::thrust_forward:
-            _physics_component.thrust_forward();
-            break;
+        case Game_Action_Code::rotate_left:
+                _physics_component.move_clockwise();
+                break;
 
-       case Game_Action_Code::rotate_left:
-            _physics_component.move_clockwise();
-            break;
+        case Game_Action_Code::rotate_right:
+                _physics_component.move_counterclockwise();
+                break;
 
-       case Game_Action_Code::rotate_right:
-            _physics_component.move_counterclockwise();
-            break;
+        case Game_Action_Code::shoot_laser:
+                // Shoot laser
+                break;
+            
+            case Game_Action_Code::destroy:
+                // Self-destruct (animation)?
+                break;
 
-       case Game_Action_Code::shoot_laser:
-            // Shoot laser
-            break;
-        
-        case Game_Action_Code::destroy:
-            // Self-destruct (animation)?
-            break;
-
+        }
     }
-
 }
 

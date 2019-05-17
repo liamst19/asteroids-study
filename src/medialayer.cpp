@@ -4,6 +4,7 @@
  * 
  */
 
+#include <vector>
 #include "medialayer.h"
 
 /** function: clear_shapes()
@@ -46,7 +47,7 @@ void MediaLayer::MediaLayer_Shutdown(MediaLayer* layer){
  *
  * 
  */
-Medialayer_Key_Code MediaLayer::MediaLayer_GetInput(MediaLayer* layer){
+std::vector<Medialayer_Key_Code> MediaLayer::MediaLayer_GetInput(MediaLayer* layer){
     return layer->get_input();
 }
 

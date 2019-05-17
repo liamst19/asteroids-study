@@ -31,7 +31,7 @@ public:
     // Update position and rotation
     void update(double delta_time) override;
 
-    void process_input(Game_Action_Code action) override;
+    void process_input(std::vector<Game_Action_Code> actions) override;
 
     // Get current position
     Vector2d position(){ return _position; }

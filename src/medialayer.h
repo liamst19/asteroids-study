@@ -41,7 +41,7 @@ public:
     static void MediaLayer_Shutdown(MediaLayer* layer);
 
     // Wrapper function for retrieving keyboard input
-    static Medialayer_Key_Code MediaLayer_GetInput(MediaLayer* layer);
+    static std::vector<Medialayer_Key_Code> MediaLayer_GetInput(MediaLayer* layer);
 
     // Wrapper function for rendering screen
     static void MediaLayer_GenerateOutput(MediaLayer* layer);
@@ -69,7 +69,7 @@ public:
     virtual bool create_window() =0;
 
     // Retrieves input from devices
-    virtual Medialayer_Key_Code get_input() =0;
+    virtual std::vector<Medialayer_Key_Code> get_input() =0;
 
     // Calculates delta time
     virtual double get_delta_time() =0;

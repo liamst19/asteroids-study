@@ -5,6 +5,7 @@
 #ifndef COMPONENT_INPUT_H
 #define COMPONENT_INPUT_H
 
+#include <vector>
 #include "component.h"
 
 class PhysicsComponent;
@@ -20,7 +21,7 @@ public:
     void update(double delta_time) override;
 
     // Handle keyboard input
-    void process_input(Game_Action_Code action) override;
+    void process_input(std::vector<Game_Action_Code> actions) override;
 
 private:
 

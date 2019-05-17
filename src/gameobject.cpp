@@ -21,10 +21,10 @@ GameObject::GameObject(Game* game):
  * 
  * 
  */
-void GameObject::process_input(Component::Game_Action_Code action){
+void GameObject::process_input(std::vector<Component::Game_Action_Code> actions){
     // Iterate through components and run process_input()
     for(auto component: _components){
-        component->process_input(action);
+        component->process_input(actions);
     }
 }
     
