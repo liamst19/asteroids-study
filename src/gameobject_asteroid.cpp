@@ -3,6 +3,7 @@
  * 
  */
 
+#include <vector>
 #include <algorithm>
 #include "math.h"
 #include "gameobject_asteroid.h"
@@ -13,14 +14,21 @@
  * 
  * 
  */
-Asteroid::Asteroid(Game* game, Vector2d position, float rotation):
+Asteroid::Asteroid(Game* game, Vector2d position, float direction, float rotation):
     GameObject(game),
-    _physics_component(this, position, rotation, 35.0, 35.0, 10)
+    _physics(this, position, direction, rotation, 35.0, 35.0, 1),
+    _draw(this, 2)
 {
-    // generate shape
-    make_shape();
 
-    add_component(&_physics_component);
+    // Set Velocities
+    _physics.set_velocity(_game->rand(_rand_forward_velocity_min, _rand_forward_velocity_max));
+    _physics.set_angular_velocity(_game->rand(_rand_angular_velocity_min, _rand_angular_velocity_max));
+
+    // generate shape
+    _draw.set_shape(make_shape());
+
+    add_component(&_physics);
+    add_component(&_draw);
 }
 
 /** function: update()
@@ -35,26 +43,31 @@ void Asteroid::update(double delta_time){
  * 
  * 
  */
-void Asteroid::make_shape(){
-  
-    // Set radius
-    _physics_component.set_radius(_game->rand(_rand_radius_min, _rand_radius_max));
+std::vector<Vector2d> Asteroid::make_shape(){
+    std::vector<Vector2d> shape;
 
-    // Set Velocities
-    _physics_component.set_velocity(_game->rand(_rand_forward_velocity_min, _rand_forward_velocity_max));
-    _physics_component.set_angular_velocity(_game->rand(_rand_angular_velocity_min, _rand_angular_velocity_max));
-
-    // Get number of vertices
     int vertices = _game->rand(_rand_vertices_min, _rand_vertices_max);
 
-    // Clear vector if nonempty
-    _physics_component.clear_shape(); 
-
+    std::vector<float> angles;
     // Fill shape with random angles
     for(int i = 0; i < vertices; ++i){
-        _physics_component.add_shape_angle(_game->rand(_rand_angles_min, _rand_angles_max));
+        angles.push_back(_game->rand(_rand_angles_min, _rand_angles_max));
     }
 
+    // Sort angles into shape
+    std::sort(angles.begin(), angles.end());
+
+    float radius = _game->rand(_rand_radius_min, _rand_radius_max);
+    Vector2d bounds = _game->get_bounds();
+    // Draw shape from angles
+    for(auto angle: angles){
+        shape.push_back(Vector2d(
+            radius * Math::Sin(Math::ToRadians(angle)),
+            -1 * radius * Math::Cos(Math::ToRadians(angle))
+        ));
+    }    
+
+    return shape;
 }
 
 /** function: draw()
@@ -62,5 +75,6 @@ void Asteroid::make_shape(){
  * 
  */
 std::vector<Vector2d> Asteroid::draw(){
-    return _physics_component.draw_shape();
+    return _draw.draw_shape(_physics.position(),
+                            _physics.rotation());
 }

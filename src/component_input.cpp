@@ -41,11 +41,11 @@ void InputComponent::process_input(Game_Action_Code action){
             break;
 
        case Game_Action_Code::rotate_left:
-            _physics_component.move_counterclockwise();
+            _physics_component.move_clockwise();
             break;
 
        case Game_Action_Code::rotate_right:
-            _physics_component.move_clockwise();
+            _physics_component.move_counterclockwise();
             break;
 
        case Game_Action_Code::shoot_laser:

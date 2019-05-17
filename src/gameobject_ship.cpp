@@ -11,15 +11,47 @@
  * 
  * 
  */
-Ship::Ship(Game* game):
+Ship::Ship(Game* game, Vector2d position):
     GameObject(game),
-    _physics_component(this, Vector2d(250, 250), 0.0, 5.0, 5.0, 10)
+    _input(this, _physics, 1),
+    _physics(this, position, 0, 0, 0, 0, 2),
+    _draw(this, 3)
 {
 
-    // - physics component
-    // - draw component
-    // - input component
+     // - draw component
+    _draw.set_shape(make_shape());
 
+    // - input component
+    add_component(&_input);
+    add_component(&_physics);
+    add_component(&_draw);
+}
+
+/** function: update()
+ * 
+ * 
+ */
+void Ship::update(double delta_time){
+    update_components(delta_time);
+}
+
+
+/** function: make_shape()
+ * 
+ * 
+ */
+std::vector<Vector2d> Ship::make_shape(){
+    float radius = 10;
+    _physics.set_direction(90);
+    _physics.set_rotation(90);
+
+    std::vector<Vector2d> shape{
+        Vector2d(radius * Math::Sin(Math::ToRadians(240)), radius * Math::Cos(Math::ToRadians(240))),
+        Vector2d(radius * Math::Sin(Math::ToRadians(300)), radius * Math::Cos(Math::ToRadians(300))),
+        Vector2d(radius * Math::Sin(Math::ToRadians(90)),  radius * Math::Cos(Math::ToRadians(90)))
+    };
+
+    return shape;
 }
 
 /** function: draw()
@@ -27,5 +59,6 @@ Ship::Ship(Game* game):
  * 
  */
 std::vector<Vector2d> Ship::draw(){
-    return _physics_component.draw_shape();
+    return _draw.draw_shape(_physics.position(),
+                            _physics.rotation());
 }

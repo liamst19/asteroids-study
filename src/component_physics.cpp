@@ -24,12 +24,14 @@ PhysicsComponent::PhysicsComponent(GameObject* owner, int update_order):
  */
 PhysicsComponent::PhysicsComponent(GameObject* owner,
                                    Vector2d position,
+                                   float direction,
                                    float rotation,
                                    float angular_velocity,
                                    float velocity,
                                    int update_order):
     Component(owner, update_order),
     _position(position),
+    _direction(direction),
     _rotation(rotation){
         // Go through methods in case they exceed min/max.
         set_velocity(velocity);
@@ -41,10 +43,8 @@ PhysicsComponent::PhysicsComponent(GameObject* owner,
  * 
  */
 void PhysicsComponent::update(double delta_time){
-
     update_rotation(delta_time);
     update_position(delta_time);
-
 }
 
 /** function: update_rotation()
@@ -54,8 +54,7 @@ void PhysicsComponent::update(double delta_time){
 void PhysicsComponent::update_rotation(double delta_time){
     if(!Math::NearZero(_angular_velocity)){
         float angle = _angular_velocity * delta_time;
-        // _rotation += angle;
-        rotate_shape(angle);
+        _rotation += angle;
     }
 }
 
@@ -67,7 +66,9 @@ void PhysicsComponent::update_position(double delta_time){
 
     // Update position
     if(!Math::NearZero(_velocity)){
-        _position += Vector2d::GetForward(_rotation) * (_velocity * delta_time);
+        float distance = _velocity * delta_time;
+        _position += Vector2d::GetForward(Math::ToRadians(_direction)) * (_velocity * delta_time);
+
         Vector2d bounds = _owner->get_bounds();
 
         // Warp if position is beyond the bounds
@@ -129,6 +130,7 @@ void PhysicsComponent::set_velocity(float velocity){
 void PhysicsComponent::move_forward(){
     // use acceleration?
     set_velocity(_velocity + _increment_velocity);
+    set_direction(_rotation);
 }
 
 /** function: move_backward()
@@ -145,8 +147,7 @@ void PhysicsComponent::move_backward(){
  * 
  */
 void PhysicsComponent::move_clockwise(){
-    // set_angular_velocity(_angular_velocity + _increment_angular_velocity);
-    _rotation += _increment_rotation;
+   _rotation  += _increment_rotation;
 }
 
 /** function: move_counterclockwise()
@@ -154,62 +155,5 @@ void PhysicsComponent::move_clockwise(){
  * 
  */
 void PhysicsComponent::move_counterclockwise(){
-    // set_angular_velocity(_angular_velocity - _increment_angular_velocity);
-    _rotation -= _increment_rotation;
-}
-
-/** function: set_radius()
- * 
- * 
- */
-void PhysicsComponent::set_radius(float radius){
-    _radius = radius;
-}
-
-/** function: clear_shape()
- * 
- * 
- */
-void PhysicsComponent::clear_shape(){
-    if(!_shape_angles.empty()){
-        _shape_angles.clear();
-    }
-}
-
-/** function: add_shape_angle()
- * 
- * 
- */
-void PhysicsComponent::add_shape_angle(float angle){
-    _shape_angles.push_back(angle);
-
-}
-
-/** function: rotate_shape_angles()
- * 
- * 
- */
-void PhysicsComponent::rotate_shape(float angle){
-    for(std::vector<float>::iterator a = _shape_angles.begin(); a != _shape_angles.end(); ++a){
-        *a += angle;
-    }
-}
-
-/** function: draw_shape()
- * 
- * 
- */
-std::vector<Vector2d> PhysicsComponent::draw_shape(){
-    // Sort angles into shape
-    std::sort(_shape_angles.begin(), _shape_angles.end());
-
-    std::vector<Vector2d> shape;
-    // Create array of Vector2d
-    for(std::vector<float>::iterator angle = _shape_angles.begin(); angle != _shape_angles.end(); ++angle){
-        shape.push_back(Vector2d(
-            _position.x + _radius * Math::Sin(Math::ToRadians(*angle)), 
-            _position.y - _radius * Math::Cos(Math::ToRadians(*angle))));
-    }
-
-    return shape;
+    _rotation  -= _increment_rotation;
 }

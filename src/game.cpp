@@ -10,6 +10,7 @@
 #include "component.h"
 #include "gameobject.h"
 #include "gameobject_asteroid.h"
+#include "gameobject_ship.h"
 
 /* --------------------------------------------------
 /* Public
@@ -39,11 +40,13 @@ bool Game::initialize(){
     for(int i = 0; i <= rand(5, 20); ++i){
         _game_objects.push_back(new Asteroid{this, 
                                              Vector2d(rand(0, _window_width), rand(0, _window_height)),
+                                             rand(1, 360),
                                              rand(1, 360)}
                                );
     }
 
     // -- create player ship
+    _game_objects.push_back(new Ship(this, Vector2d(_window_width/2, _window_height/2)));
 
     // ----------------------------------------------------------
 

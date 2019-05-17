@@ -20,6 +20,7 @@ public:
 
     PhysicsComponent(GameObject* owner, 
                      Vector2d position, 
+                     float direction,
                      float rotation, 
                      float angular_velocity, 
                      float forward_velocity, 
@@ -50,6 +51,11 @@ public:
 
     void set_rotation(float rotation){ _rotation = rotation; }
 
+    // Get Direction
+    float direction(){ return _direction; }
+
+    void set_direction(float direction){ _direction = direction; }
+
     // Get velocity
     float get_velocity(){ return _velocity; }
 
@@ -70,21 +76,12 @@ public:
 
     void move_counterclockwise();
 
-    // Shape -----------------------------
-
-    void set_radius(float radius);
-
-    void add_shape_angle(float angle);
-
-    void clear_shape();
-
-    std::vector<Vector2d> draw_shape();
-
 private:
 
     Vector2d _position;
     float _rotation;
 
+    float _direction;
     float _velocity;
     float _acceleration;
 
@@ -92,15 +89,9 @@ private:
     float _angular_acceleration;
 
     float _mass; // for when we can calculate more realistically, e.g. force for collision, etc.
-    float _radius;
 
     void update_rotation(double delta_time);
     void update_position(double delta_time);
-
-    // collection of angles to determine vertices
-    std::vector<float> _shape_angles;
-    
-    void rotate_shape(float angle);
 
     // Constants ------------------------------
     const float _increment_velocity{10.0};
@@ -109,7 +100,7 @@ private:
 
     const float _max_angular_velocity{100.0};
     const float _min_angular_velocity{0.0};
-    const float _max_velocity{100.0};
+    const float _max_velocity{500.0};
     const float _min_velocity{0.0};
 
 };
