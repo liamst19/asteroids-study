@@ -42,12 +42,12 @@ std::vector<Vector2d> DrawComponent::draw_shape(Vector2d position, float rotatio
 
     float radians = Math::ToRadians(rotation);
     float sin_r = Math::Sin(radians);
-    float cos_r = Math::Cos(radians) * -1;
+    float cos_r = Math::Cos(radians);
 
     for(auto point: _shape){
         shape.push_back(Vector2d(
             position.x + (cos_r * point.x - sin_r * point.y),
-            position.y + (sin_r * point.x + cos_r * point.y)
+            position.y - (sin_r * point.x + cos_r * point.y)
         ));
     }
 

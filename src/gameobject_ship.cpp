@@ -14,11 +14,15 @@
 Ship::Ship(Game* game, Vector2d position):
     GameObject(game),
     _input(this, _physics, 1),
-    _physics(this, position, 0, 0, 0, 0, 2),
+    _physics(this, position, 0, 0, 0, Vector2d(), 2),
     _draw(this, 3)
 {
 
-     // - draw component
+    // - physics component
+    _physics.set_rotation(90);
+    _physics.set_direction(90);
+
+    // - draw component
     _draw.set_shape(make_shape());
 
     // - input component
@@ -46,9 +50,9 @@ std::vector<Vector2d> Ship::make_shape(){
     _physics.set_rotation(90);
 
     std::vector<Vector2d> shape{
-        Vector2d(radius * Math::Sin(Math::ToRadians(240)), radius * Math::Cos(Math::ToRadians(240))),
-        Vector2d(radius * Math::Sin(Math::ToRadians(300)), radius * Math::Cos(Math::ToRadians(300))),
-        Vector2d(radius * Math::Sin(Math::ToRadians(90)),  radius * Math::Cos(Math::ToRadians(90)))
+        Vector2d(radius * Math::Cos(Math::ToRadians(0)),   radius * -Math::Sin(Math::ToRadians(0))),
+        Vector2d(radius * Math::Cos(Math::ToRadians(150)), radius * -Math::Sin(Math::ToRadians(150))),
+        Vector2d(radius * Math::Cos(Math::ToRadians(210)), radius * -Math::Sin(Math::ToRadians(210)))
     };
 
     return shape;

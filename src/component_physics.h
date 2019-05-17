@@ -23,7 +23,7 @@ public:
                      float direction,
                      float rotation, 
                      float angular_velocity, 
-                     float forward_velocity, 
+                     Vector2d velocity, 
                      int update_order);
 
     ~PhysicsComponent(){};
@@ -57,18 +57,18 @@ public:
     void set_direction(float direction){ _direction = direction; }
 
     // Get velocity
-    float get_velocity(){ return _velocity; }
+    Vector2d get_velocity(){ return _velocity; }
 
-    void set_velocity(float velocity);
+    void set_velocity(Vector2d velocity);
 
     // Get angular velocity
     float get_angular_velocity(){ return _angular_velocity; }
 
-    void set_angular_velocity(float velocity);
+    void set_angular_velocity(float angular_velocity);
 
     // Move ------------------------------
 
-    void move_forward();
+    void thrust_forward();
 
     void move_backward();
 
@@ -82,7 +82,7 @@ private:
     float _rotation;
 
     float _direction;
-    float _velocity;
+    Vector2d _velocity;
     float _acceleration;
 
     float _angular_velocity;
@@ -94,14 +94,18 @@ private:
     void update_position(double delta_time);
 
     // Constants ------------------------------
-    const float _increment_velocity{10.0};
-    const float _increment_angular_velocity{10.0};
-    const float _increment_rotation{10.0};
+    const float _increment_velocity{2.5};
+    const float _increment_angular_velocity{5.0};
+    const float _increment_rotation{2.5};
 
-    const float _max_angular_velocity{100.0};
+    const float _max_angular_velocity{50.0};
     const float _min_angular_velocity{0.0};
-    const float _max_velocity{500.0};
+    const float _max_velocity{250.0};
     const float _min_velocity{0.0};
+
+    static bool near_zero(Vector2d velocity){
+        return !Math::NearZero(velocity.x) || !Math::NearZero(velocity.y);
+    };
 
 };
 

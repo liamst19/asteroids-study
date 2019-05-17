@@ -27,7 +27,7 @@ PhysicsComponent::PhysicsComponent(GameObject* owner,
                                    float direction,
                                    float rotation,
                                    float angular_velocity,
-                                   float velocity,
+                                   Vector2d velocity,
                                    int update_order):
     Component(owner, update_order),
     _position(position),
@@ -65,9 +65,8 @@ void PhysicsComponent::update_rotation(double delta_time){
 void PhysicsComponent::update_position(double delta_time){
 
     // Update position
-    if(!Math::NearZero(_velocity)){
-        float distance = _velocity * delta_time;
-        _position += Vector2d::GetForward(Math::ToRadians(_direction)) * (_velocity * delta_time);
+    if(near_zero(_velocity)){
+        _position +=  _velocity * delta_time;
 
         Vector2d bounds = _owner->get_bounds();
 
@@ -97,8 +96,8 @@ void PhysicsComponent::process_input(Game_Action_Code action){
  * 
  * 
  */
-void PhysicsComponent::set_angular_velocity(float velocity){
-    _angular_velocity = velocity;
+void PhysicsComponent::set_angular_velocity(float angular_velocity){
+    _angular_velocity = angular_velocity;
 
     // Caps
     if(_angular_velocity > _max_angular_velocity){
@@ -112,25 +111,32 @@ void PhysicsComponent::set_angular_velocity(float velocity){
  * 
  * 
  */
-void PhysicsComponent::set_velocity(float velocity){
+void PhysicsComponent::set_velocity(Vector2d velocity){
     _velocity = velocity;
 
+
     // Caps
-    if(_velocity > _max_velocity){
-        _velocity = _max_velocity;
-    } else if(_velocity < _min_velocity){
-        _velocity = _min_velocity;
-    }
+    // if(_velocity.x > _max_velocity){
+    //     _velocity.x = _max_velocity;
+    // }
+
+    // if(_velocity.y > _max_velocity){
+    //     _velocity.y = _max_velocity;
+    // }
 }
 
-/** function: move_forward()
+/** function: thrust_forward()
  * 
  * 
  */
-void PhysicsComponent::move_forward(){
+void PhysicsComponent::thrust_forward(){
     // use acceleration?
-    set_velocity(_velocity + _increment_velocity);
-    set_direction(_rotation);
+    Vector2d velocity = _velocity + (_increment_velocity * Vector2d::GetForward(Math::ToRadians(_rotation)));
+
+    if(velocity.length() > _max_velocity){
+        velocity = _max_velocity * Vector2d::GetForward(Math::ToRadians(_rotation));
+    }
+    set_velocity(velocity);
 }
 
 /** function: move_backward()
@@ -139,7 +145,7 @@ void PhysicsComponent::move_forward(){
  */
 void PhysicsComponent::move_backward(){
     // use acceleration (negatively)?
-    set_velocity(_velocity - _increment_velocity);
+    set_velocity(_velocity - _increment_velocity * Vector2d::GetForward(Math::ToRadians(_rotation)));
 }
 
 /** function: move_clockwise()
@@ -147,7 +153,7 @@ void PhysicsComponent::move_backward(){
  * 
  */
 void PhysicsComponent::move_clockwise(){
-   _rotation  += _increment_rotation;
+    _rotation  += _increment_rotation;
 }
 
 /** function: move_counterclockwise()

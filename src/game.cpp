@@ -175,7 +175,7 @@ Component::Game_Action_Code Game::map_action(Medialayer_Key_Code key){
 
     switch(key){
         case Medialayer_Key_Code::w:
-            action = Component::Game_Action_Code::go_forward;
+            action = Component::Game_Action_Code::thrust_forward;
             break;
         
         case Medialayer_Key_Code::a:

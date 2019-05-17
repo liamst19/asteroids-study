@@ -208,7 +208,7 @@ public:
 	static Vector2d GetForward(float angle)
 	{
         // negative y-value because of screen
-		return Vector2d(Math::Cos(angle), Math::Sin(angle));
+		return Vector2d(Math::Cos(angle), -Math::Sin(angle));
 	}
 
 	// Get angle of a vector using arctangent

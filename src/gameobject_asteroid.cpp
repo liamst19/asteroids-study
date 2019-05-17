@@ -16,12 +16,13 @@
  */
 Asteroid::Asteroid(Game* game, Vector2d position, float direction, float rotation):
     GameObject(game),
-    _physics(this, position, direction, rotation, 35.0, 35.0, 1),
+    _physics(this, position, direction, rotation, 0, Vector2d(), 1),
     _draw(this, 2)
 {
 
     // Set Velocities
-    _physics.set_velocity(_game->rand(_rand_forward_velocity_min, _rand_forward_velocity_max));
+    _physics.set_velocity(Vector2d(_game->rand(_rand_forward_velocity_min, _rand_forward_velocity_max),
+                                   _game->rand(_rand_forward_velocity_min, _rand_forward_velocity_max)));
     _physics.set_angular_velocity(_game->rand(_rand_angular_velocity_min, _rand_angular_velocity_max));
 
     // generate shape

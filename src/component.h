@@ -14,7 +14,7 @@ public:
     enum class Game_Action_Code{
         nothing         = 0,
         shoot_laser     = 3,
-        go_forward      = 4,
+        thrust_forward  = 4,
         rotate_left     = 5,
         go_backward     = 6,
         rotate_right    = 7,
