@@ -2,11 +2,14 @@
  *
  */
 
+#include <SDL2/SDL.h>
 #include <vector>
+#include "randomnumber.h"
+#include "medialayer.h"
+#include "game.h"
 #include "component.h"
 #include "gameobject.h"
-#include "game.h"
-#include "medialayer.h"
+#include "gameobject_asteroid.h"
 
 /* --------------------------------------------------
 /* Public
@@ -31,6 +34,15 @@ bool Game::initialize(){
     // Create game objects --------------------------------------
 
     // -- create asteroids
+
+    // Generate random number of asteroids
+    for(int i = 0; i <= rand(5, 20); ++i){
+        _game_objects.push_back(new Asteroid{this, 
+                                             Vector2d(rand(0, _window_width), rand(0, _window_height)),
+                                             rand(1, 360)}
+                               );
+    }
+
     // -- create player ship
 
     // ----------------------------------------------------------
@@ -56,7 +68,6 @@ bool Game::initialize(MediaLayer* media_layer, int window_width, int window_heig
  * 
  */
 void Game::run_loop(){
-
     _is_running = true;
 
     while(_is_running){
@@ -74,6 +85,12 @@ void Game::run_loop(){
 void Game::shutdown(){
     if(_media_layer != nullptr){
         MediaLayer::MediaLayer_Shutdown(_media_layer);
+    }
+
+    if(!_game_objects.empty()){
+        for(auto obj: _game_objects){
+            delete obj;
+        }
     }
 }
 
@@ -130,8 +147,12 @@ void Game::update_game(){
  * 
  */
 void Game::generate_output(){
+    _media_layer->clear_shapes();
 
     // iterate through and render game objects
+    for(auto gameobj: _game_objects){
+        _media_layer->add_shape(gameobj->draw());
+    }
 
     MediaLayer::MediaLayer_GenerateOutput(_media_layer);
  }
@@ -151,7 +172,7 @@ Component::Game_Action_Code Game::map_action(Medialayer_Key_Code key){
 
     switch(key){
         case Medialayer_Key_Code::w:
-            action = Component::Game_Action_Code::accelerate;
+            action = Component::Game_Action_Code::go_forward;
             break;
         
         case Medialayer_Key_Code::a:
@@ -159,7 +180,7 @@ Component::Game_Action_Code Game::map_action(Medialayer_Key_Code key){
             break;
         
         case Medialayer_Key_Code::s:
-            action = Component::Game_Action_Code::decelerate;
+            action = Component::Game_Action_Code::go_backward;
             break;
 
         case Medialayer_Key_Code::d:
@@ -173,3 +194,11 @@ Component::Game_Action_Code Game::map_action(Medialayer_Key_Code key){
 
     return action;
 } 
+
+/** function: rand()
+ * 
+ * 
+ */
+int Game::rand(int min, int max){
+    return _rand.rand(min, max);
+}

@@ -11,8 +11,39 @@
 
 namespace Math{
 
+	const float Pi = 3.1415926535f;
+	const float TwoPi = Pi * 2.0f;
+	const float PiOver2 = Pi / 2.0f;
+//	const float Infinity = std::numeric_limits<float>::infinity();
+//	const float NegInfinity = -std::numeric_limits<float>::infinity();
+
+    // Convert degrees to radians
+	inline float ToRadians(float degrees)
+	{
+		return degrees * Pi / 180.0f;
+	}
+
+    // Convert radians to degrees
+	inline float ToDegrees(float radians)
+	{
+		return radians * 180.0f / Pi;
+	}
+
+    // Checks whether float value is near zero
+	inline bool NearZero(float val, float epsilon = 0.001f)
+	{
+		if (fabs(val) <= epsilon)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
     // Square root of float
-    float Sqrt(float value){
+    inline float Sqrt(float value){
         return sqrtf(value);
     }
 

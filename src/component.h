@@ -12,18 +12,18 @@ class Component{
 public:
 
     enum class Game_Action_Code{
-        nothing            = 0,
+        nothing         = 0,
         shoot_laser     = 3,
-        accelerate      = 4,
+        go_forward      = 4,
         rotate_left     = 5,
-        decelerate      = 6,
+        go_backward     = 6,
         rotate_right    = 7,
         destroy         
     };
 
     Component(GameObject* owner, int update_order);
 
-    virtual ~Component();
+    virtual ~Component(){};
 
     // Process Input
     virtual void process_input(Game_Action_Code action) =0;

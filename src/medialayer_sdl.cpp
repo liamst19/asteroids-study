@@ -149,12 +149,52 @@ Medialayer_Key_Code MediaLayer_SDL::get_input(){
     return Medialayer_Key_Code::null;
 }
 
-/* function: draw()
+/* function: render_objects()
  *
  * 
  */
-void MediaLayer_SDL::draw(){
+void MediaLayer_SDL::render_objects(){
 
+    // iterate through std::vector<std::vector<Vector2d>>
+    // from each std::vector<Vector2d>, draw lines from coordinates,
+    // closing the shape by drawing the line from end to beginning.
+    for(auto shape: _shapes){
+        draw_shape(shape);
+    }
+
+}
+
+/** function: draw_shape()
+ * 
+ *
+ */
+void MediaLayer_SDL::draw_shape(std::vector<Vector2d> shape){
+    if(shape.size() < 3){
+        // not a shape
+        SDL_Log("Not a shape");
+        return;
+    }
+
+    SDL_SetRenderDrawColor(_renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+
+    int size = shape.size() + 1;
+    SDL_Point points[size];
+    for(int i = 0; i < shape.size(); ++i){
+        points[i] = convert_point(shape[i]);
+    }
+
+    // Close shape by connecting to the beginning
+    points[size - 1] = convert_point(shape[0]);
+
+    SDL_RenderDrawLines(_renderer, points, size);
+}
+
+/** function: convert_point()
+ * 
+ * 
+ */
+SDL_Point MediaLayer_SDL::convert_point(Vector2d point){
+    return SDL_Point{static_cast<int>(point.x), static_cast<int>(point.y)};
 }
 
 /* function: generate_output()
@@ -162,11 +202,11 @@ void MediaLayer_SDL::draw(){
  * 
  */
 void MediaLayer_SDL::generate_output(){
-    SDL_RenderClear(_renderer);
     SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 0);
+    SDL_RenderClear(_renderer);
 
     // Render Game Objects ------------------------------
-
+    render_objects();
     // --------------------------------------------------
     
     SDL_RenderPresent(_renderer);
@@ -185,7 +225,7 @@ double MediaLayer_SDL::get_delta_time(){
     }
 
     // Reset tick counter
-    _ticks_count = 0;
+    _ticks_count = SDL_GetTicks();
 
     return delta;
 }

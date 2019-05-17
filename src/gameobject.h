@@ -6,7 +6,8 @@
 #define GAMEOBJECT_H
 
 #include <vector>
-#include "component.h"
+#include "math.h"
+#include "component_physics.h"
 
 class Game; // Forward Declare
 
@@ -28,9 +29,16 @@ public:
     void process_input(Component::Game_Action_Code action);
 
     // Update
-    void update(double delta_time);
+    virtual void update(double delta_time) =0;
+    
+    // Draw object: return a vector containing path coordinates,
+    // or perhaps a vector of shape objects, each containing instructions 
+    virtual std::vector<Vector2d> draw() =0;
+
+    Vector2d get_bounds();
 
 protected:
+    Game* _game;
 
     // Update Game Object
     void update_gameobject(double delta_time);
@@ -43,8 +51,8 @@ protected:
 
 private:
 
-    Game* _game;
     std::vector<Component*> _components;
+
 };
 
 #endif

@@ -7,15 +7,24 @@
 
 #include "component.h"
 
+class PhysicsComponent;
+
 class InputComponent: public Component{
 
-    InputComponent(GameObject* owner, int update_order = 10);
+public:
 
-    ~InputComponent();
+    InputComponent(GameObject* owner, PhysicsComponent& physics_component, int update_order = 10);
+
+    ~InputComponent(){};
 
     void update(double delta_time) override;
+
+    // Handle keyboard input
     void process_input(Game_Action_Code action) override;
 
+private:
+
+    PhysicsComponent& _physics_component;
 };
 
 #endif

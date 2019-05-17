@@ -22,3 +22,30 @@
     - Asteroid destruction
 - Background: draw distant stars?
 - Sound: probably not.
+
+## Graphics
+
+For drawing ship and asteroids, there seems to be several options to go about: 
+```
+int SDL_RenderDrawLine (SDL_Renderer* renderer,
+                       int           x1,
+                       int           y1,
+                       int           x2,
+                       int           y2)
+
+int SDL_RenderDrawLines (SDL_Renderer* renderer,
+                        const SDL_Point* points,
+                        int              count)
+
+int SDL_RenderDrawPoint (SDL_Renderer* renderer,
+                        int           x, 
+                        int           y)
+
+int SDL_RenderDrawPoints (SDL_Renderer* renderer,
+                         const SDL_Point* points,
+                         int              count)
+
+```
+[`SDL_RenderDrawLines`](https://wiki.libsdl.org/SDL_RenderDrawLines) appears to be the simplest, drawing along a path of array of points. I suppose that `DrawComponent` object would contain an array of coordinates that plot a path, which would be transformed (moved and rotated) upon `update()`, and converted to an array of `SDL_Point`s upon `generate_output()` call. 
+
+Perhaps it would also be good exercise to try porting to OpenGL in the future. 

@@ -8,6 +8,9 @@
 #ifndef MEDIALAYER_H
 #define MEDIALAYER_H
 
+#include <vector>
+#include "math.h"
+
 // Keyboard inputs and window events
 enum class Medialayer_Key_Code{
     null=0, // default
@@ -65,14 +68,26 @@ public:
     // Creates and opens window
     virtual bool create_window() =0;
 
-    // Adds object to be rendered to screen
-    virtual void draw() =0;
-
     // Retrieves input from devices
     virtual Medialayer_Key_Code get_input() =0;
 
     // Calculates delta time
     virtual double get_delta_time() =0;
+
+    // Draw various shapes? Possibilities:
+    // Line
+    // Lines
+    // Point
+    // Points
+    // Circle: midpoint, radius, fill color (optional)
+    // Polygon: coordinates of vertices, fill color (optional) - no need for triangles and rectangles?
+    // Fill region
+
+    // Clear shapes to ready to be added
+    void clear_shapes();
+
+    // Add a shape to be rendered
+    void add_shape(std::vector<Vector2d> shape);
 
 protected:
 
@@ -82,6 +97,8 @@ protected:
     int _ticks_count{0};                // For calculating delta time
     const int _ms_per_frame{16};        // For delta time: 60fps = apprx. 1 frame per 16ms
     const double _delta_max{0.05};      // Cap for delta time, in seconds
+
+    std::vector<std::vector<Vector2d>> _shapes; // collection of shapes to be rendered
 
 private:
 

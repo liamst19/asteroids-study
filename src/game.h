@@ -9,6 +9,7 @@
 
 #include <vector>
 #include <SDL2/SDL.h>
+#include "randomnumber.h"
 #include "medialayer.h"
 #include "gameobject.h"
 #include "component.h"
@@ -39,7 +40,14 @@ public:
     // Shuts down game
     void shutdown();
 
+    int rand(int min, int max);
+
+    Vector2d get_bounds(){ return Vector2d(_window_width, _window_height); };
+
 private:
+
+    RandomNumber _rand;
+
     bool _is_running;
     int _window_width{720};
     int _window_height{480};

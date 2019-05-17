@@ -6,6 +6,26 @@
 
 #include "medialayer.h"
 
+/** function: clear_shapes()
+ * 
+ * 
+ */
+void MediaLayer::clear_shapes(){
+    if(!_shapes.empty()){
+        _shapes.clear();
+    }
+}
+
+/** function: add_shape()
+ * 
+ * 
+ */
+void MediaLayer::add_shape(std::vector<Vector2d> shape){
+    _shapes.push_back(shape);
+}
+
+// ----------------------------------------------------------------------
+
 /** function: MediaLayer_Initialize()
  *
  * 

@@ -54,10 +54,6 @@ public:
 
     // Retrieves input (keyboard) from media layer
     Medialayer_Key_Code get_input();
-
-    // Adds an object to be rendered to a vector
-    void draw();
-
     // Renders contents onto screen
     void generate_output();
 
@@ -72,6 +68,13 @@ private:
 
     // Creates SDL 2D rendering context
     bool create_renderer();
+
+    // Adds an object to be rendered to a vector
+    void render_objects();
+
+    void draw_shape(std::vector<Vector2d> shape); 
+
+    SDL_Point convert_point(Vector2d point);
 
 };
 

@@ -4,7 +4,9 @@
  */
 
 #include <vector>
+#include "math.h"
 #include "component.h"
+#include "game.h"
 #include "gameobject.h"
 
 /** GameObject Constructor
@@ -21,18 +23,14 @@ GameObject::GameObject(Game* game):
  */
 void GameObject::process_input(Component::Game_Action_Code action){
     // Iterate through components and run process_input()
-    for(Component* component: _components){
+    for(auto component: _components){
         component->process_input(action);
     }
 }
+    
+//}
 
-/** function: update()
- * 
- * 
- */
-void GameObject::update(double delta_time){
-
-}
+Vector2d GameObject::get_bounds(){ return _game->get_bounds(); }
 
 // ----------------------------------------------------------------------
 // protected 
@@ -60,7 +58,7 @@ void GameObject::add_component(Component* component){
  */
 void GameObject::update_components(double delta_time){
     // Iterate through components and run update()
-    for(Component* component: _components){
+    for(auto component: _components){
         component->update(delta_time);
     }
 }
