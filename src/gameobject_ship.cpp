@@ -43,8 +43,13 @@ void Ship::update(double delta_time){
 
     if(_state == GameObject_State_Code::destroyed){
         _destroyed_delta += delta_time;
-        if(_destroyed_delta > _resurrect_delta){
+        if(_destroyed_delta > _inactive_delta){
             resurrect();
+        }
+    } else if(_state == GameObject_State_Code::resurrected){
+        _resurrected_delta += delta_time;
+        if(_resurrected_delta > _invincible_delta){
+            _state = GameObject_State_Code::active;
         }
     }
 }
@@ -65,7 +70,8 @@ void Ship::destroy(){
  * 
  */
 void Ship::resurrect(){
-    _state = GameObject_State_Code::active;
+    _state = GameObject_State_Code::resurrected;
+    _resurrected_delta = 0;
     _physics.set_position(_initial_position);
     _physics.set_rotation(90);
     _physics.set_velocity(Vector2d(0, 0));

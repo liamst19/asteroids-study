@@ -41,6 +41,7 @@ std::vector<Vector2d> DrawComponent::draw_shape(Vector2d position, float rotatio
 
     // Draw according to the object's state
     switch(_owner->state()){
+        case GameObject::GameObject_State_Code::resurrected:
         case GameObject::GameObject_State_Code::active:
             shape = draw_shape_active(position, rotation);
             break;

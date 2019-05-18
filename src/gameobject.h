@@ -21,7 +21,8 @@ public:
     enum class GameObject_State_Code{
         active,
         inactive,
-        destroyed
+        destroyed,
+        resurrected
     };
 
     GameObject(Game* game, Vector2d position, float rotation);
@@ -79,7 +80,9 @@ protected:
     const int _component_count{5};
 
     double _destroyed_delta;
-    const double _resurrect_delta{3.0};
+    double _resurrected_delta;
+    const double _inactive_delta{3.0};
+    const double _invincible_delta{3.0};
 
     // Update Game Object
     void update_gameobject(double delta_time);

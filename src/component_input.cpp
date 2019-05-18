@@ -31,7 +31,8 @@ void InputComponent::update(double delta_time){
  * 
  */
 void InputComponent::process_input(std::vector<Game_Action_Code> actions){
-    if(_owner->state() == GameObject::GameObject_State_Code::active){
+    if(_owner->state() == GameObject::GameObject_State_Code::active
+    || _owner->state() == GameObject::GameObject_State_Code::resurrected){
         for(auto action: actions){
             switch(action){
 

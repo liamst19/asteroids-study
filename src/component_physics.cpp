@@ -40,7 +40,8 @@ PhysicsComponent::PhysicsComponent(GameObject* owner,
  * 
  */
 void PhysicsComponent::update(double delta_time){
-    if(_owner->state() == GameObject::GameObject_State_Code::active){
+    if(_owner->state() == GameObject::GameObject_State_Code::active
+    || _owner->state() == GameObject::GameObject_State_Code::resurrected){
         update_rotation(delta_time);
         update_position(delta_time);
     }
