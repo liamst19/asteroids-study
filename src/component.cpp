@@ -7,7 +7,6 @@
 
 /**
  * 
- * 
  */
 Component::Component(GameObject* owner, int update_order):
     _owner(owner),

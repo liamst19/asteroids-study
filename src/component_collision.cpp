@@ -12,7 +12,6 @@
 
 /** Constructor
  *
- * 
  */
 CollisionComponent::CollisionComponent(GameObject* owner, PhysicsComponent& physics, int update_order):
     Component(owner, update_order),
@@ -20,11 +19,9 @@ CollisionComponent::CollisionComponent(GameObject* owner, PhysicsComponent& phys
     _is_ship(false),
     _radius(0)
 {
-
 }
 
 /** function update()
- * 
  * 
  */
 void CollisionComponent::update(double delta_time){
@@ -57,7 +54,6 @@ void CollisionComponent::update(double delta_time){
 
 /** function process_input()
  * 
- * 
  */
 void CollisionComponent::process_input(std::vector<Game_Action_Code> actions){
 
@@ -68,7 +64,6 @@ const Vector2d CollisionComponent::get_center() const {
 }
 
 /** function: collide()
- * 
  * 
  */
 bool CollisionComponent::collide(const CollisionComponent& object){
@@ -92,7 +87,6 @@ float CollisionComponent::collision_angle(const CollisionComponent& object){
 }
 
 /** function: intersect()
- * 
  * 
  */
 bool CollisionComponent::intersect(const CollisionComponent& a, const CollisionComponent& b){

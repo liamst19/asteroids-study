@@ -36,8 +36,10 @@ private:
 
     float _radius;
     int _deaths;
+    double _survive_delta;
 
-    std::vector<Vector2d> make_shape();
+    std::vector<Vector2d> make_shape_active();
+    std::vector<Vector2d> make_shape_destroyed();
 
 };
 

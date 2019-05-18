@@ -13,7 +13,6 @@
 
 /** Constructor
  * 
- * 
  */
 Asteroid::Asteroid(Game* game, 
                    Vector2d position, 
@@ -27,7 +26,9 @@ Asteroid::Asteroid(Game* game,
 
     // generate shape
     float radius = _game->rand(_rand_radius_min, _rand_radius_max);
-    _draw.set_shape(make_shape(radius));
+
+    _draw.set_shape_active(make_shape_active(radius));
+    _draw.set_shape_destroyed(make_shape_destroyed(radius));
 
     // prepare collision
     _collision.set_radius(radius);
@@ -39,14 +40,12 @@ Asteroid::Asteroid(Game* game,
 
 /** function: update()
  * 
- * 
  */
 void Asteroid::update(double delta_time){
     update_components(delta_time);
 }
 
 /** function: destroy()
- * 
  * 
  */
 void Asteroid::destroy(){
@@ -55,9 +54,8 @@ void Asteroid::destroy(){
 
 /** function: make_shape()
  * 
- * 
  */
-std::vector<Vector2d> Asteroid::make_shape(float radius){
+std::vector<Vector2d> Asteroid::make_shape_active(float radius){
     std::vector<Vector2d> shape;
 
     int vertices = _game->rand(_rand_vertices_min, _rand_vertices_max);
@@ -83,8 +81,22 @@ std::vector<Vector2d> Asteroid::make_shape(float radius){
     return shape;
 }
 
-/** function: draw()
+/** function: draw_shape_destroyed()
  * 
+ */
+std::vector<Vector2d> Asteroid::make_shape_destroyed(float radius){
+   std::vector<Vector2d> shape{
+       Vector2d(5, -3), 
+       Vector2d(-5, 3), 
+       Vector2d(8, -5), 
+       Vector2d(-8, 5), 
+       Vector2d(3, -1), 
+       Vector2d(-4, 3), 
+   };
+   return shape;
+}
+
+/** function: draw()
  * 
  */
 std::vector<Vector2d> Asteroid::draw(){

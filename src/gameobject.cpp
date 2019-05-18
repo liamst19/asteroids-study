@@ -14,7 +14,6 @@
 
 /** GameObject Constructor
  * 
- * 
  */
 GameObject::GameObject(Game* game, Vector2d position, float rotation):
     _game(game),
@@ -26,7 +25,6 @@ GameObject::GameObject(Game* game, Vector2d position, float rotation):
 
 /** function: process_input()
  * 
- * 
  */
 void GameObject::process_input(std::vector<Component::Game_Action_Code> actions){
     // Iterate through components and run process_input()
@@ -34,8 +32,6 @@ void GameObject::process_input(std::vector<Component::Game_Action_Code> actions)
         component->process_input(actions);
     }
 }
-    
-//}
 
 Vector2d GameObject::get_bounds(){ 
     return _game->get_bounds(); 
@@ -70,14 +66,12 @@ float GameObject::rotation() const{
 
 /** function: update_gameobject()
  * 
- * 
  */
 void GameObject::update_gameobject(double delta_time){
 
 }
 
 /** function: add_component()
- * 
  * 
  */
 void GameObject::add_component(Component* component){
@@ -86,7 +80,6 @@ void GameObject::add_component(Component* component){
 }
 
 /** function: update_components()
- * 
  * 
  */
 void GameObject::update_components(double delta_time){

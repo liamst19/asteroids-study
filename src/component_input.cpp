@@ -10,7 +10,6 @@
 
 /** Constructor
  * 
- * 
  */
 InputComponent::InputComponent(GameObject* owner, PhysicsComponent& physics_component, int update_order):
     Component(owner, update_order),
@@ -20,14 +19,12 @@ InputComponent::InputComponent(GameObject* owner, PhysicsComponent& physics_comp
 
 /** function update()
  * 
- * 
  */
 void InputComponent::update(double delta_time){
 
 }
 
 /** function process_input()
- * 
  * 
  */
 void InputComponent::process_input(std::vector<Game_Action_Code> actions){

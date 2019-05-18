@@ -2,7 +2,6 @@
  *
  */
 
-#include <SDL2/SDL.h>
 #include <vector>
 #include "randomnumber.h"
 #include "medialayer.h"
@@ -57,8 +56,6 @@ bool Game::initialize(MediaLayer* media_layer, int window_width, int window_heig
 void Game::create_asteroids(){
     
     int count{rand(10, 50)};
-    
-    count = 25;
 
     for(int i = 0; i <= count; ++i){
         

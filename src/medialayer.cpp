@@ -9,7 +9,6 @@
 
 /** function: clear_shapes()
  * 
- * 
  */
 void MediaLayer::clear_shapes(){
     if(!_shapes.empty()){
@@ -19,7 +18,6 @@ void MediaLayer::clear_shapes(){
 
 /** function: add_shape()
  * 
- * 
  */
 void MediaLayer::add_shape(std::vector<Vector2d> shape){
     _shapes.push_back(shape);
@@ -28,7 +26,6 @@ void MediaLayer::add_shape(std::vector<Vector2d> shape){
 // ----------------------------------------------------------------------
 
 /** function: MediaLayer_Initialize()
- *
  * 
  */
 bool MediaLayer::MediaLayer_Initialize(MediaLayer* layer, int window_width, int window_height){
@@ -37,14 +34,12 @@ bool MediaLayer::MediaLayer_Initialize(MediaLayer* layer, int window_width, int 
 
 /** function: MediaLayer_Shutdown()
  *
- * 
  */
 void MediaLayer::MediaLayer_Shutdown(MediaLayer* layer){
     layer->shutdown();
 }
 
 /** function: MediaLayer_GetInput()
- *
  * 
  */
 std::vector<Medialayer_Key_Code> MediaLayer::MediaLayer_GetInput(MediaLayer* layer){
@@ -52,7 +47,6 @@ std::vector<Medialayer_Key_Code> MediaLayer::MediaLayer_GetInput(MediaLayer* lay
 }
 
 /** function: MediaLayer_GenerateOutput()
- *
  * 
  */
 void MediaLayer::MediaLayer_GenerateOutput(MediaLayer* layer){
@@ -60,7 +54,6 @@ void MediaLayer::MediaLayer_GenerateOutput(MediaLayer* layer){
 }
 
 /** function MediaLayer_GetDeltaTime()
- * 
  * 
  */
 double MediaLayer::MediaLayer_GetDeltaTime(MediaLayer* layer){
