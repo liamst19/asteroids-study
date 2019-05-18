@@ -15,7 +15,7 @@ class Asteroid: public GameObject{
 
 public:
 
-    Asteroid(Game* game, Vector2d position, float direction, float rotation);
+    Asteroid(Game* game, Vector2d position, float rotation);
 
     ~Asteroid(){};
 

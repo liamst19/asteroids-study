@@ -15,10 +15,10 @@
  * 
  * 
  */
-GameObject::GameObject(Game* game, Vector2d position, float direction, float rotation):
+GameObject::GameObject(Game* game, Vector2d position, float rotation):
     _game(game),
     _state(GameObject_State_Code::active),
-    _physics(this, position, direction, rotation, 0, Vector2d(), 22),
+    _physics(this, position, rotation, 0, Vector2d(), 22),
     _draw(this, 3),
     _collision(this, _physics, 4)
 {}
@@ -60,6 +60,9 @@ Vector2d GameObject::velocity() const{
     return _physics.velocity();
 }
 
+float GameObject::rotation() const{
+    return _physics.rotation();
+}
 
 // ----------------------------------------------------------------------
 // protected 

@@ -24,7 +24,7 @@ public:
         destroyed
     };
 
-    GameObject(Game* game, Vector2d position, float direction, float rotation);
+    GameObject(Game* game, Vector2d position, float rotation);
 
     virtual ~GameObject(){};
 
@@ -38,8 +38,10 @@ public:
     // or perhaps a vector of shape objects, each containing instructions 
     virtual std::vector<Vector2d> draw() =0;
 
+    // Get boundary info: the screen dimension
     Vector2d get_bounds();
 
+    // Get collection of game objects in existence
     std::vector<GameObject*> game_objects();
 
     // State ------------------------------
@@ -53,6 +55,8 @@ public:
     // Position and Velocity --------------
 
     Vector2d position() const;
+
+    float rotation() const;
 
     Vector2d velocity() const;
 

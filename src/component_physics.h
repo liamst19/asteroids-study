@@ -20,7 +20,6 @@ public:
 
     PhysicsComponent(GameObject* owner, 
                      Vector2d position, 
-                     float direction,
                      float rotation, 
                      float angular_velocity, 
                      Vector2d velocity, 
@@ -51,11 +50,6 @@ public:
 
     void set_rotation(float rotation){ _rotation = rotation; }
 
-    // Get Direction
-    float direction(){ return _direction; }
-
-    void set_direction(float direction){ _direction = direction; }
-
     // Get velocity
     Vector2d velocity() const { return _velocity; }
 
@@ -83,7 +77,6 @@ private:
     Vector2d _position;
     float _rotation;
 
-    float _direction;
     Vector2d _velocity;
     float _acceleration;
 

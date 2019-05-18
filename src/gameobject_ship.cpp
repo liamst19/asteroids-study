@@ -13,7 +13,7 @@
  * 
  */
 Ship::Ship(Game* game, Vector2d position):
-    GameObject(game, position, 0, 0),
+    GameObject(game, position, 0),
     _input(this, _physics, 1),
     _deaths(0)
 {
@@ -68,7 +68,6 @@ void Ship::resurrect(){
     _state = GameObject_State_Code::active;
     _physics.set_position(_initial_position);
     _physics.set_rotation(90);
-    _physics.set_direction(90);
     _physics.set_velocity(Vector2d(0, 0));
     _physics.set_angular_velocity(0);
 }
@@ -78,17 +77,20 @@ void Ship::resurrect(){
  * 
  */
 std::vector<Vector2d> Ship::make_shape(){
-    float radius = 10;
+    _radius = 10;
     float short_radius = 7;
-    _physics.set_direction(90);
-    _physics.set_rotation(90);
 
     std::vector<Vector2d> shape{
-        Vector2d(short_radius * Math::Cos(Math::ToRadians(0)),   radius * -Math::Sin(Math::ToRadians(0))),
-        Vector2d(radius * Math::Cos(Math::ToRadians(150)), radius * -Math::Sin(Math::ToRadians(150))),
-        Vector2d(short_radius * Math::Cos(Math::ToRadians(150)), short_radius * -Math::Sin(Math::ToRadians(150))),
-        Vector2d(short_radius * Math::Cos(Math::ToRadians(210)), short_radius * -Math::Sin(Math::ToRadians(210))),
-        Vector2d(radius * Math::Cos(Math::ToRadians(210)), radius * -Math::Sin(Math::ToRadians(210)))
+        Vector2d(short_radius * Math::Cos(Math::ToRadians(0)),
+                 _radius * -Math::Sin(Math::ToRadians(0))),
+        Vector2d(_radius * Math::Cos(Math::ToRadians(150)), 
+                 _radius * -Math::Sin(Math::ToRadians(150))),
+        Vector2d(short_radius * Math::Cos(Math::ToRadians(150)), 
+                 short_radius * -Math::Sin(Math::ToRadians(150))),
+        Vector2d(short_radius * Math::Cos(Math::ToRadians(210)), 
+                 short_radius * -Math::Sin(Math::ToRadians(210))),
+        Vector2d(_radius * Math::Cos(Math::ToRadians(210)),      
+                 _radius * -Math::Sin(Math::ToRadians(210)))
     };
 
     return shape;

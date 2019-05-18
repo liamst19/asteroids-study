@@ -15,8 +15,10 @@
  * 
  * 
  */
-Asteroid::Asteroid(Game* game, Vector2d position, float direction, float rotation):
-    GameObject(game, position, direction, rotation)
+Asteroid::Asteroid(Game* game, 
+                   Vector2d position, 
+                   float rotation):
+    GameObject(game, position, rotation)
 {
     // Set Velocities
     _physics.set_velocity(Vector2d(_game->rand(_rand_forward_velocity_min, _rand_forward_velocity_max),

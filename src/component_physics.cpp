@@ -14,7 +14,6 @@ class GameObject;
 
 /** Constructor
  * 
- * 
  */
 PhysicsComponent::PhysicsComponent(GameObject* owner, int update_order):
     Component(owner, update_order){
@@ -22,18 +21,15 @@ PhysicsComponent::PhysicsComponent(GameObject* owner, int update_order):
 
 /** Constructor with initial position and velocitys
  * 
- * 
  */
 PhysicsComponent::PhysicsComponent(GameObject* owner,
                                    Vector2d position,
-                                   float direction,
                                    float rotation,
                                    float angular_velocity,
                                    Vector2d velocity,
                                    int update_order):
     Component(owner, update_order),
     _position(position),
-    _direction(direction),
     _rotation(rotation){
         // Go through methods in case they exceed min/max.
         set_velocity(velocity);
@@ -41,7 +37,6 @@ PhysicsComponent::PhysicsComponent(GameObject* owner,
 }
 
 /** function update()
- * 
  * 
  */
 void PhysicsComponent::update(double delta_time){
@@ -53,7 +48,6 @@ void PhysicsComponent::update(double delta_time){
 
 /** function: update_rotation()
  * 
- * 
  */
 void PhysicsComponent::update_rotation(double delta_time){
     if(!Math::NearZero(_angular_velocity)){
@@ -63,7 +57,6 @@ void PhysicsComponent::update_rotation(double delta_time){
 }
 
 /** function: update_position()
- * 
  * 
  */
 void PhysicsComponent::update_position(double delta_time){
@@ -91,13 +84,11 @@ void PhysicsComponent::update_position(double delta_time){
 
 /** function process_input()
  * 
- * 
  */
 void PhysicsComponent::process_input(std::vector<Game_Action_Code> actions){
 }
 
 /** function: set_angular_velocity()
- * 
  * 
  */
 void PhysicsComponent::set_angular_velocity(float angular_velocity){
@@ -113,11 +104,9 @@ void PhysicsComponent::set_angular_velocity(float angular_velocity){
 
 /** function: set_velocity()
  * 
- * 
  */
 void PhysicsComponent::set_velocity(Vector2d velocity){
     _velocity = velocity;
-
 
     // Caps
     // if(_velocity.x > _max_velocity){
@@ -130,7 +119,6 @@ void PhysicsComponent::set_velocity(Vector2d velocity){
 }
 
 /** function: thrust_forward()
- * 
  * 
  */
 void PhysicsComponent::thrust_forward(){
@@ -145,7 +133,6 @@ void PhysicsComponent::thrust_forward(){
 
 /** function: move_backward()
  * 
- * 
  */
 void PhysicsComponent::move_backward(){
     // use acceleration (negatively)?
@@ -154,7 +141,6 @@ void PhysicsComponent::move_backward(){
 
 /** function: move_clockwise()
  * 
- * 
  */
 void PhysicsComponent::move_clockwise(){
     _rotation  += _increment_rotation;
@@ -162,14 +148,12 @@ void PhysicsComponent::move_clockwise(){
 
 /** function: move_counterclockwise()
  * 
- * 
  */
 void PhysicsComponent::move_counterclockwise(){
     _rotation  -= _increment_rotation;
 }
 
 /** function: bounce()
- * 
  * 
  */
 void PhysicsComponent::bounce(float angle, Vector2d velocity){

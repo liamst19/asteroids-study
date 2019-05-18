@@ -34,6 +34,7 @@ private:
     
     Vector2d _initial_position;
 
+    float _radius;
     int _deaths;
 
     std::vector<Vector2d> make_shape();

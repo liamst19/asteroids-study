@@ -2,6 +2,8 @@
  * 
  * 
  */
+#include <iostream>
+#include <math.h>
 #include <vector>
 #include "component_collision.h"
 #include "component_physics.h"
@@ -33,7 +35,17 @@ void CollisionComponent::update(double delta_time){
         if(!_is_ship && !colliding_obj.is_ship()
         && CollisionComponent::intersect(obj->collision_component(), *this)){
             // two asteroids colliding 
-            _physics.bounce(collision_angle(obj->collision_component()), obj->velocity());
+
+            float bounce_angle{collision_angle(obj->collision_component())};
+            Vector2d bounce_velocity{obj->velocity()};
+
+            if(isnan(bounce_angle)){
+                bounce_angle = _owner->rotation() * -1;
+                bounce_velocity += _owner->velocity();
+            }
+
+            _physics.bounce(bounce_angle, bounce_velocity);
+
         } else if(_is_ship && CollisionComponent::intersect(obj->collision_component(), *this)){
             // ship colliding with asteroid
             if(_owner->state() == GameObject::GameObject_State_Code::active){
@@ -69,10 +81,14 @@ bool CollisionComponent::collide(const CollisionComponent& object){
  */
 float CollisionComponent::collision_angle(const CollisionComponent& object){
 
-    float dot = Vector2d::Dot(Vector2d::Normalize(get_center()), Vector2d::Normalize(object.get_center())); 
-    float acos = Math::Acos(dot);
+    Vector2d center_a = get_center();
+    Vector2d center_b = object.get_center();
 
-    return Math::ToDegrees(acos);
+    float dot = Vector2d::Dot(Vector2d::Normalize(center_a), Vector2d::Normalize(center_b)); 
+    float acos = Math::Acos(dot);
+    float angle = Math::ToDegrees(acos);
+
+    return angle;
 }
 
 /** function: intersect()

@@ -17,7 +17,6 @@
 
 /** function: initialize()
  * 
- * 
  */
 bool Game::initialize(){
 
@@ -33,28 +32,14 @@ bool Game::initialize(){
     initialized = MediaLayer::MediaLayer_Initialize(_media_layer, _window_width, _window_height);
 
     // Create game objects --------------------------------------
-
-    // -- create asteroids
-
-    // Generate random number of asteroids
-    for(int i = 0; i <= rand(10, 50); ++i){
-        _game_objects.push_back(new Asteroid{this, 
-                                             Vector2d(rand(0, _window_width), rand(0, _window_height)),
-                                             static_cast<float>(rand(1, 360)),
-                                             static_cast<float>(rand(1, 360))}
-                               );
-    }
-
-    // -- create player ship
-    _game_objects.push_back(new Ship(this, Vector2d(_window_width/2, _window_height/2)));
-
+    create_asteroids();
+    create_ship();
     // ----------------------------------------------------------
 
     return initialized;
 }
 
 /** function: initialize()
- * 
  * 
  */
 bool Game::initialize(MediaLayer* media_layer, int window_width, int window_height){
@@ -66,8 +51,35 @@ bool Game::initialize(MediaLayer* media_layer, int window_width, int window_heig
     return initialize();
 }
 
-/** function: run_loop()
+/** function:: create_asteroids()
  * 
+ */
+void Game::create_asteroids(){
+    
+    int count{rand(10, 50)};
+
+    for(int i = 0; i <= count; ++i){
+        
+        Vector2d position{static_cast<float>(rand(0, _window_width)), 
+                          static_cast<float>(rand(0, _window_height))};
+
+        float rotation{static_cast<float>(rand(1, 360))};
+
+        _game_objects.push_back(new Asteroid{this, 
+                                             position,
+                                             rotation}
+                               );
+    }
+}
+
+/** function: create_ship()
+ * 
+ */
+void Game::create_ship(){
+    _game_objects.push_back(new Ship(this, Vector2d(_window_width/2, _window_height/2)));
+}
+
+/** function: run_loop()
  * 
  */
 void Game::run_loop(){
@@ -82,7 +94,6 @@ void Game::run_loop(){
 }
 
 /** function: shutdown()
- * 
  * 
  */
 void Game::shutdown(){
@@ -101,7 +112,6 @@ void Game::shutdown(){
 /* Private
 
 /** function: process_input()
- * 
  * 
  */
 void Game::process_input(){
@@ -129,7 +139,6 @@ void Game::process_input(){
 
 /** function: update_game()
  * 
- * 
  */
 void Game::update_game(){
 
@@ -151,7 +160,6 @@ void Game::update_game(){
  }
 
 /** function: generate_output()
- * 
  * 
  */
 void Game::generate_output(){
@@ -204,7 +212,6 @@ Component::Game_Action_Code Game::map_action(Medialayer_Key_Code key){
 } 
 
 /** function: rand()
- * 
  * 
  */
 int Game::rand(int min, int max){

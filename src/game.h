@@ -56,6 +56,12 @@ private:
     MediaLayer* _media_layer;
     std::vector<GameObject*> _game_objects;
 
+    // Create Ship
+    void create_ship();
+
+    // create asteroids
+    void create_asteroids();
+
     // Retrieves and handles keyboard input from media layer
     void process_input();
 

@@ -10,7 +10,6 @@
 // Public
 
 /* function: initialize()
- *
  * 
  */
 bool MediaLayer_SDL::initialize(){
@@ -31,7 +30,6 @@ bool MediaLayer_SDL::initialize(){
 }
 
 /* function: initialize()
- *
  * 
  */
 bool MediaLayer_SDL::initialize(int window_width, int window_height, int window_x, int window_y){
@@ -56,7 +54,6 @@ bool MediaLayer_SDL::initialize(int window_width, int window_height){
 }
 
 /* function: shutdown()
- *
  * 
  */
 void MediaLayer_SDL::shutdown(){
@@ -68,7 +65,6 @@ void MediaLayer_SDL::shutdown(){
 }
 
 /* function: create_window()
- *
  * 
  */
 bool MediaLayer_SDL::create_window(){
@@ -89,7 +85,6 @@ bool MediaLayer_SDL::create_window(){
 }
 
 /* function: create_renderer()
- *
  * 
  */
 bool MediaLayer_SDL::create_renderer(){
@@ -110,7 +105,6 @@ bool MediaLayer_SDL::create_renderer(){
 }
 
 /* function: get_input()
- *
  * 
  */
 std::vector<Medialayer_Key_Code> MediaLayer_SDL::get_input(){
@@ -154,7 +148,6 @@ std::vector<Medialayer_Key_Code> MediaLayer_SDL::get_input(){
 
 /** function: add_key_code()
  * 
- * 
  */
 void MediaLayer_SDL::add_key_code(std::vector<Medialayer_Key_Code>& key_codes, Medialayer_Key_Code key_code){
     // Check if key is already in the vector
@@ -167,7 +160,6 @@ void MediaLayer_SDL::add_key_code(std::vector<Medialayer_Key_Code>& key_codes, M
 }
 
 /* function: render_objects()
- *
  * 
  */
 void MediaLayer_SDL::render_objects(){
@@ -208,14 +200,12 @@ void MediaLayer_SDL::draw_shape(std::vector<Vector2d> shape){
 
 /** function: convert_point()
  * 
- * 
  */
 SDL_Point MediaLayer_SDL::convert_point(Vector2d point){
     return SDL_Point{static_cast<int>(point.x), static_cast<int>(point.y)};
 }
 
 /* function: generate_output()
- *
  * 
  */
 void MediaLayer_SDL::generate_output(){
