@@ -76,6 +76,8 @@ protected:
     DrawComponent       _draw;
     PhysicsComponent    _physics;
 
+    const int _component_count{5};
+
     double _destroyed_delta;
     const double _resurrect_delta{3.0};
 

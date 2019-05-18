@@ -34,7 +34,7 @@ public:
     virtual void update(double delta_time) =0;
 
     // Get rendering position
-    int get_update_order() const { return _update_order; };
+    int update_order() const { return _update_order; };
 
 protected:
 

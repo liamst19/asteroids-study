@@ -41,7 +41,7 @@ void CollisionComponent::update(double delta_time){
 
             if(isnan(bounce_angle)){
                 bounce_angle = _owner->rotation() * -1;
-                bounce_velocity += _owner->velocity();
+                // bounce_velocity += _owner->velocity();
             }
 
             _physics.bounce(bounce_angle, bounce_velocity);

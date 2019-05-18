@@ -102,6 +102,8 @@ private:
         return !Math::NearZero(velocity.x) || !Math::NearZero(velocity.y);
     };
 
+    float get_bounce_angle(float angle);
+
 };
 
 #endif

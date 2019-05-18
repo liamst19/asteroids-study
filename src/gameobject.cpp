@@ -3,6 +3,7 @@
  * 
  */
 
+#include<iostream>
 #include <vector>
 #include "math.h"
 
@@ -18,9 +19,9 @@
 GameObject::GameObject(Game* game, Vector2d position, float rotation):
     _game(game),
     _state(GameObject_State_Code::active),
-    _physics(this, position, rotation, 0, Vector2d(), 22),
-    _draw(this, 3),
-    _collision(this, _physics, 4)
+    _collision(this, _physics, 2),
+    _physics(this, position, rotation, 0, Vector2d(), 3),
+    _draw(this, 4)
 {}
 
 /** function: process_input()
@@ -89,8 +90,14 @@ void GameObject::add_component(Component* component){
  * 
  */
 void GameObject::update_components(double delta_time){
+    int component_order = 0;
     // Iterate through components and run update()
-    for(auto component: _components){
-        component->update(delta_time);
+    while(component_order <= _component_count){
+        ++component_order;
+        for(auto component: _components){
+            if(component->update_order() == component_order){
+               component->update(delta_time);
+            }
+        }
     }
 }

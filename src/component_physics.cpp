@@ -122,7 +122,6 @@ void PhysicsComponent::set_velocity(Vector2d velocity){
  * 
  */
 void PhysicsComponent::thrust_forward(){
-    // use acceleration?
     Vector2d velocity = _velocity + (_increment_velocity * Vector2d::GetForward(Math::ToRadians(_rotation)));
 
     if(velocity.length() > _max_velocity){
@@ -135,8 +134,8 @@ void PhysicsComponent::thrust_forward(){
  * 
  */
 void PhysicsComponent::move_backward(){
-    // use acceleration (negatively)?
-    set_velocity(_velocity - _increment_velocity * Vector2d::GetForward(Math::ToRadians(_rotation)));
+    float increment_backward_velocity = _increment_velocity / 2;
+    set_velocity(_velocity - increment_backward_velocity * Vector2d::GetForward(Math::ToRadians(_rotation)));
 }
 
 /** function: move_clockwise()
@@ -157,12 +156,7 @@ void PhysicsComponent::move_counterclockwise(){
  * 
  */
 void PhysicsComponent::bounce(float angle, Vector2d velocity){
-    Vector2d n = Vector2d::GetForward(Math::ToRadians(angle));
-    Vector2d v = Vector2d::Normalize(_velocity);
-    Vector2d u = (Vector2d::Dot(n, v)/Vector2d::Dot(n, n)) * n;
-    Vector2d w = v - u;
-
-    float rotation = Vector2d::GetAngle(w - u);
+    float rotation = get_bounce_angle(angle);
     float sin_r = Math::Sin(rotation);
     float cos_r = Math::Cos(rotation);
 
@@ -170,4 +164,19 @@ void PhysicsComponent::bounce(float angle, Vector2d velocity){
             cos_r * velocity.x + sin_r * velocity.y,
             sin_r * velocity.x - cos_r * velocity.y
     );
+}
+
+float PhysicsComponent::get_bounce_angle(float angle){
+    Vector2d vec_obj = Vector2d::GetForward(Math::ToRadians(angle));
+    Vector2d vec_self = Vector2d::Normalize(_velocity);
+
+    // Reflected vector
+    Vector2d vec_ref = -1 * ((2 * vec_self * Vector2d::Dot(vec_self, vec_obj)) - vec_obj);
+    // Vector2d u = (Vector2d::Dot(vec_obj, vec_self)/Vector2d::Dot(vec_obj, vec_obj)) * vec-obj;
+    // Vector2d w = v - u;
+
+    // float rotation = Vector2d::GetAngle(w - u);
+    float rotation = Vector2d::GetAngle(vec_ref);
+
+    return rotation;
 }
