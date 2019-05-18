@@ -37,7 +37,7 @@ bool Game::initialize(){
     // -- create asteroids
 
     // Generate random number of asteroids
-    for(int i = 0; i <= rand(5, 20); ++i){
+    for(int i = 0; i <= rand(10, 50); ++i){
         _game_objects.push_back(new Asteroid{this, 
                                              Vector2d(rand(0, _window_width), rand(0, _window_height)),
                                              static_cast<float>(rand(1, 360)),

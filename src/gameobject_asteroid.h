@@ -29,9 +29,9 @@ private:
 
     const int _rand_angles_min{1}, _rand_angles_max{360};
     const int _rand_vertices_min{5}, _rand_vertices_max{15};
-    const int _rand_radius_min{10}, _rand_radius_max{50};
-    const int _rand_forward_velocity_min{-50}, _rand_forward_velocity_max{50};
-    const int _rand_angular_velocity_min{-50}, _rand_angular_velocity_max{50};
+    const int _rand_radius_min{5}, _rand_radius_max{50};
+    const int _rand_forward_velocity_min{-75}, _rand_forward_velocity_max{75};
+    const int _rand_angular_velocity_min{-75}, _rand_angular_velocity_max{75};
 
     // generate _shape_angles in PhysicsComponent
     std::vector<Vector2d> make_shape(float radius);

@@ -96,9 +96,9 @@ private:
     void update_position(double delta_time);
 
     // Constants ------------------------------
-    const float _increment_velocity{2.5};
+    const float _increment_velocity{1.0};
     const float _increment_angular_velocity{5.0};
-    const float _increment_rotation{2.5};
+    const float _increment_rotation{1.0};
 
     const float _max_angular_velocity{50.0};
     const float _min_angular_velocity{0.0};
