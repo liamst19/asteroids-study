@@ -3,12 +3,14 @@
  * 
  */
 
-#include <SDL2/SDL.h>
 #include <vector>
 #include <algorithm>
-#include "gameobject.h"
-#include "component_physics.h"
 #include "math.h"
+
+#include "component_physics.h"
+#include "gameobject.h"
+
+class GameObject;
 
 /** Constructor
  * 
@@ -43,8 +45,10 @@ PhysicsComponent::PhysicsComponent(GameObject* owner,
  * 
  */
 void PhysicsComponent::update(double delta_time){
-    update_rotation(delta_time);
-    update_position(delta_time);
+    if(_owner->state() == GameObject::GameObject_State_Code::active){
+        update_rotation(delta_time);
+        update_position(delta_time);
+    }
 }
 
 /** function: update_rotation()
@@ -162,4 +166,24 @@ void PhysicsComponent::move_clockwise(){
  */
 void PhysicsComponent::move_counterclockwise(){
     _rotation  -= _increment_rotation;
+}
+
+/** function: bounce()
+ * 
+ * 
+ */
+void PhysicsComponent::bounce(float angle, Vector2d velocity){
+    Vector2d n = Vector2d::GetForward(Math::ToRadians(angle));
+    Vector2d v = Vector2d::Normalize(_velocity);
+    Vector2d u = (Vector2d::Dot(n, v)/Vector2d::Dot(n, n)) * n;
+    Vector2d w = v - u;
+
+    float rotation = Vector2d::GetAngle(w - u);
+    float sin_r = Math::Sin(rotation);
+    float cos_r = Math::Cos(rotation);
+
+    _velocity = Vector2d(
+            cos_r * velocity.x + sin_r * velocity.y,
+            sin_r * velocity.x - cos_r * velocity.y
+    );
 }

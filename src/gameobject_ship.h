@@ -10,9 +10,7 @@
 #include "randomnumber.h"
 #include "gameobject.h"
 #include "math.h"
-#include "component_physics.h"
 #include "component_input.h"
-#include "component_draw.h"
 
 class Ship: public GameObject{
 
@@ -26,11 +24,17 @@ public:
 
     void update(double delta_time);
 
+    void destroy() override;
+
+    void resurrect();
+
 private:
 
-    PhysicsComponent    _physics;
     InputComponent      _input;
-    DrawComponent       _draw;
+    
+    Vector2d _initial_position;
+
+    int _deaths;
 
     std::vector<Vector2d> make_shape();
 

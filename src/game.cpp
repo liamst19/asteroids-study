@@ -139,6 +139,7 @@ void Game::update_game(){
     // iterate through game objects and run update()
     for(auto gameobj: _game_objects){
         gameobj->update(delta_time);
+        // collision
         // if object is destroyed, remove from vector
         // flag respawn smaller asteroids if destroyed
     }

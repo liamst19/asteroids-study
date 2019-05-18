@@ -10,8 +10,6 @@
 #include "randomnumber.h"
 #include "gameobject.h"
 #include "math.h"
-#include "component_physics.h"
-#include "component_draw.h"
 
 class Asteroid: public GameObject{
 
@@ -25,9 +23,9 @@ public:
 
     std::vector<Vector2d> draw() override;
 
+    void destroy() override;
+
 private:
-    PhysicsComponent _physics;
-    DrawComponent    _draw;
 
     const int _rand_angles_min{1}, _rand_angles_max{360};
     const int _rand_vertices_min{5}, _rand_vertices_max{15};
@@ -36,7 +34,7 @@ private:
     const int _rand_angular_velocity_min{-50}, _rand_angular_velocity_max{50};
 
     // generate _shape_angles in PhysicsComponent
-    std::vector<Vector2d> make_shape();
+    std::vector<Vector2d> make_shape(float radius);
 
 };
 

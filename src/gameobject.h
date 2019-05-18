@@ -7,7 +7,10 @@
 
 #include <vector>
 #include "math.h"
+#include "component_collision.h"
 #include "component_physics.h"
+#include "component_draw.h"
+
 
 class Game; // Forward Declare
 
@@ -15,13 +18,13 @@ class GameObject{
 
 public:
 
-    enum {
+    enum class GameObject_State_Code{
         active,
         inactive,
         destroyed
     };
 
-    GameObject(Game* game);
+    GameObject(Game* game, Vector2d position, float direction, float rotation);
 
     virtual ~GameObject(){};
 
@@ -37,8 +40,40 @@ public:
 
     Vector2d get_bounds();
 
+    std::vector<GameObject*> game_objects();
+
+    // State ------------------------------
+
+    void set_state(GameObject_State_Code state){ _state = state; }
+
+    GameObject_State_Code state(){ return _state; }
+
+    virtual void destroy() =0;
+
+    // Position and Velocity --------------
+
+    Vector2d position() const;
+
+    Vector2d velocity() const;
+
+    // Collision --------------------------
+
+    bool collide(const CollisionComponent& object);
+
+    float collision_angle(const CollisionComponent& object);
+
+    CollisionComponent& collision_component(){ return _collision; }
+
 protected:
     Game* _game;
+    GameObject_State_Code _state;
+
+    CollisionComponent  _collision;
+    DrawComponent       _draw;
+    PhysicsComponent    _physics;
+
+    double _destroyed_delta;
+    const double _resurrect_delta{3.0};
 
     // Update Game Object
     void update_gameobject(double delta_time);

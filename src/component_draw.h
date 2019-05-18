@@ -32,6 +32,10 @@ private:
     // Collection of vertices that form shape of the object
     std::vector<Vector2d> _shape;
 
+    std::vector<Vector2d> draw_shape_active(Vector2d position, float rotation);
+
+    // animate
+    std::vector<Vector2d> draw_shape_destroyed(Vector2d position, float rotation);
 
 };
 

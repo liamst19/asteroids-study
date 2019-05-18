@@ -9,8 +9,8 @@
 #define COMPONENT_PHYSICS_H
 
 #include <vector>
-#include "component.h"
 #include "math.h"
+#include "component.h"
 
 class PhysicsComponent: public Component{
 
@@ -34,11 +34,11 @@ public:
     void process_input(std::vector<Game_Action_Code> actions) override;
 
     // Get current position
-    Vector2d position(){ return _position; }
+    Vector2d position() const { return _position; }
 
-    int positionX(){ return _position.x; }
+    int positionX() const { return _position.x; }
 
-    int postionY(){ return _position.y; }
+    int postionY() const { return _position.y; }
 
     // Set current position
     void set_position(Vector2d position){ _position = position; }
@@ -47,7 +47,7 @@ public:
     void set_position(float x, float y){ _position = Vector2d(x, y); }
 
     // Get rotation
-    float rotation(){ return _rotation; }
+    float rotation() const { return _rotation; }
 
     void set_rotation(float rotation){ _rotation = rotation; }
 
@@ -57,12 +57,12 @@ public:
     void set_direction(float direction){ _direction = direction; }
 
     // Get velocity
-    Vector2d get_velocity(){ return _velocity; }
+    Vector2d velocity() const { return _velocity; }
 
     void set_velocity(Vector2d velocity);
 
     // Get angular velocity
-    float get_angular_velocity(){ return _angular_velocity; }
+    float angular_velocity() const { return _angular_velocity; }
 
     void set_angular_velocity(float angular_velocity);
 
@@ -75,6 +75,8 @@ public:
     void move_clockwise();
 
     void move_counterclockwise();
+
+    void bounce(float angle, Vector2d velocity);
 
 private:
 

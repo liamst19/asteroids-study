@@ -44,6 +44,8 @@ public:
 
     Vector2d get_bounds(){ return Vector2d(_window_width, _window_height); };
 
+    std::vector<GameObject*> game_objects(){ return _game_objects; }
+
 private:
 
     RandomNumber _rand;
