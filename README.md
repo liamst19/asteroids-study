@@ -10,18 +10,18 @@ The primary intentions are:
 
 ## Current State
 
-    - Asteroids 
-        - they are polygons with randomly generated vertices and radius
-        - they collide and bounce off each other
-    - Ship
-        - They rotate and move forward and backward:
-            - W: Forward
-            - S: Backward
-            - A: Rotate counter clockwise
-            - D: Rotate clockwise
-        - Weapons are not yet implemented
-        - There are few seconds of invincibility to get away from overlapping asteroids.
-        - Upon collision with an asteroid, it will reset to the center.
+- Asteroids 
+    - they are polygons with randomly generated vertices and radius
+    - they collide and bounce off each other
+- Ship
+    - They rotate and move forward and backward:
+        - W: Forward
+        - S: Backward
+        - A: Rotate counter clockwise
+        - D: Rotate clockwise
+    - Weapons are not yet implemented
+    - There are few seconds of invincibility to get away from overlapping asteroids.
+    - Upon collision with an asteroid, it will reset to the center.
 
 ![GitHub Logo](/images/screen.jpg)
 
