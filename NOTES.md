@@ -7,14 +7,19 @@
 ## TODO
 
 - The code from the book used sprite images, but the original *Asteroids* apparently were drawn. Figure out how to draw asteroids.
-    - an asteroid would have a center and radius
-    - should shapes be randomly generated, or should there be several hand-coded templates?
+    - ~~an asteroid would have a center and radius~~
+    - ~~should shapes be randomly generated, or should there be several hand-coded templates?~~ Asteroids are polygons whose radius and vertices are randomly generated.
 - My initial guess is that following components would be necessary to handle player ship and asteroids:
-    - Graphics: handles instructions for rendering shapes, and possibly animation
-    - Physics: handles positions, rotation, vectors, velocities, and collision
-    - Input?: handles player spaceship input
+    - ~~Graphics: handles instructions for rendering shapes, and possibly animation~~
+    - ~~Physics: handles positions, rotation, vectors, velocities, and collision~~
+    - ~~Input?: handles player spaceship input~~
+    These are all implemented now.
 - Shooting down asteroids
     - Would lasers also be an object with its own physics and graphics?
+    - Should asteroids have HP?
+- Interface: HUD
+    - Still need to find out how to render fonts
+    - Timer for how long a ship can survive without colliding
 - Animation
     - Ship thrusters
     - Ship laser
@@ -22,6 +27,15 @@
     - Asteroid destruction
 - Background: draw distant stars?
 - Sound: probably not.
+- Wishlist/Brainstorming:
+    - Asteroids would have different properties, e.g. resources like water, energy, ores, and a ship would interact to collect.
+    - Resource management: energy, water/food, materials for repair and upgrade
+    - Larger universe with generated clusters of asteroids
+    - Gravitational pull
+    - With larger universe, faster travel like lightspeed warping
+    - Ship mechanics: damages, repairing, upgrading
+    - Non-Player ships: pirates, friendlies
+    - Stations to sell/buy/trade resources, repair
 
 ## Graphics
 
