@@ -1,6 +1,8 @@
 
 # Build -----------------------------------------------------------------------
 
+*.ttf 
+
 ### Output and Cache Directories ###
 /External/
 /Debug/
